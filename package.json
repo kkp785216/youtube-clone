@@ -1,5 +1,6 @@
 {
-  "name": "my-app",
+  "name": "react5",
+  "homepage": "https://kkp785216.github.io/react5",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
