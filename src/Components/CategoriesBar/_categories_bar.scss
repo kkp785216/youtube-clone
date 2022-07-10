@@ -1,0 +1,70 @@
+@import '../../base.scss';
+
+.categoriesBar{
+    padding: 0 24px;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    background-color: #fffffffa;
+    position: fixed;
+    top: 60px;
+    right: 0;
+    z-index: 998;
+    display: flex;
+    height: 55px;
+    align-items: center;
+}
+.categoriesBar >div{
+    padding: 0.5rem 0;
+    font-size: 14px;
+    display: flex;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar{
+        width: 0;
+    }
+    scrollbar-width: none;
+
+    span{
+        margin-right: 0.7rem;
+        padding: 0.4rem 0.9rem;
+        white-space: nowrap;
+        border: 1.5px solid $text-color;
+        border-radius: 999px;
+        font-weight: 500;
+        transition: background-color 0.1s ease-in;
+        background-color: #f2f2f2;
+
+        &:hover{
+            background-color: #e5e5e5;
+            cursor: pointer;
+        }
+
+        &.active{
+            background-color: #212529;
+            color: white;
+        }
+    }
+
+}
+
+.categoriesBar> div::-webkit-scrollbar {
+    height: 0;
+}
+
+.app_main .categoriesBar{
+    left: 90px;
+    @media(max-width: 790px){
+        left: 0;
+    }
+}
+.app_main.open .categoriesBar{
+    left: 250px;
+    @media(max-width: 790px){
+        left: 0;
+    }
+}
+
+.category-manage{
+    width: 10px;
+    height: 55px;
+}

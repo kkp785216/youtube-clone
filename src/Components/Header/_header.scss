@@ -1,0 +1,118 @@
+@import '../../_base.scss';
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fffffffa;
+    z-index: 998;
+}
+
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    line-height: 60px;
+    overflow: hidden;
+    width: 100%;
+    padding: 0 24px;
+    position: relative;
+
+
+    .header_left,
+    .header_right {
+        margin: -8px;
+        flex-shrink: 0;
+    }
+
+    .header_left>*,
+    .header_right>* {
+        padding: 8px;
+    }
+
+    .header_middle {
+        flex-grow: 1;
+        max-width: 600px;
+        flex-shrink: 1;
+        padding: 0 16px;
+    }
+
+    .header_middle>* {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        line-height: 40px;
+        background-color: white;
+
+        .input_back {
+            display: none;
+            border: none;
+            padding: 11px;
+        }
+
+        >* {
+            border: 1px solid $border-color;
+        }
+
+        .search-box.on {
+            border: 1px solid blue;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+            flex: auto;
+            overflow: hidden;
+            border-radius: 2px 0 0 2px;
+
+            span {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 40px;
+                visibility: hidden;
+                opacity: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            input {
+                outline: none;
+                padding: 0 8px;
+                width: 100%;
+                border: none;
+                font-weight: 400;
+                box-shadow: inset 0px 2px 6px -3px #cccccc;
+            }
+            
+            input:focus {
+                padding-left: 40px;
+                box-shadow: inset 0px 1px 3px 1px #cccccc;
+            }
+
+            input:focus~span {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        button {
+            border: 1px solid $border-color;
+            border-left: none;
+            width: 57px;
+        }
+    }
+
+    .header_right>* {
+        object-fit: contain;
+    }
+}
+
+.fix-manage {
+    width: 100%;
+    height: 60px;
+}
