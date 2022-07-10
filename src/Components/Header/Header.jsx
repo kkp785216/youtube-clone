@@ -6,6 +6,7 @@ import { MdNotifications, MdApps } from 'react-icons/md'
 import { BiArrowBack } from 'react-icons/bi'
 import header_logo from "../../Media/img/youtube_logo.svg"
 import user_logo from "../../Media/img/user.png"
+import {Link} from 'react-router-dom'
 
 const Header = (props) => {
   return (
@@ -16,7 +17,7 @@ const Header = (props) => {
             <div className='round-animt d-inline' onClick={()=>{props.handleSidebar()}}>
               <AiOutlineMenu className='header_menu' size={40} />
             </div>
-            <img src={header_logo} alt="YouTube" className="header_logo" width="102px" title="YouTube Home"/>
+            <Link to="/"><img src={header_logo} alt="YouTube" className="header_logo" width="102px" title="YouTube Home"/></Link>
           </div>
           <form className='header_middle'>
             <div className='search-container'>

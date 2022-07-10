@@ -1,6 +1,6 @@
 @import '../../base.scss';
 
-.sidebar{
+.sidebar {
     display: flex;
     flex-direction: column;
     width: 90px;
@@ -9,14 +9,15 @@
     overflow-y: auto;
     background-color: white;
 
-    li{
+    li,
+    a:not(.logo){
         display: flex;
         align-items: center;
         padding: 0.6rem 1.5rem;
         cursor: pointer;
         justify-content: flex-start;
 
-        span{
+        span {
             margin-left: 1rem;
             font-size: 14px;
             font-weight: 500;
@@ -24,27 +25,31 @@
             display: none;
         }
 
-        &:hover{
+        &:hover {
             background-color: #0000000d;
         }
     }
 
-    hr{
+    a, a:hover{
+        color: unset;
+    }
+
+    hr {
         min-height: 1px;
     }
 
-    &.small{
+    &.small {
         position: fixed;
         left: 0;
         top: 60px;
         bottom: 0;
     }
 
-    &.small > .header_left{
+    &.small>.header_left {
         display: none;
     }
 
-    &.float-nav{
+    &.float-nav {
         position: fixed;
         top: 0;
         left: 0;
@@ -54,30 +59,36 @@
         transform: translateX(-100%);
         padding-top: 0;
 
-        li{
+        li,
+        a {
             justify-content: start;
-            span{
+
+            span {
                 display: unset;
             }
         }
-        .header_left{
+
+        .header_left {
             line-height: 60px;
             padding: 0;
             box-sizing: border-box;
             flex-shrink: 0;
             padding-left: 16px;
             margin-bottom: 2rem;
-            &>*{
+
+            &>* img {
                 padding: 8px;
             }
         }
     }
-    &.float-nav.open{
+
+    &.float-nav.open {
         width: 250px;
         transform: translateX(0);
     }
-    @media (max-width: $breakpoint-medium){
-        &.float-nav{
+
+    @media (max-width: $breakpoint-medium) {
+        &.float-nav {
             transition: transform 0.2s ease-in;
         }
     }
@@ -105,31 +116,33 @@
     background-clip: content-box;
     background-color: rgb(126, 126, 126);
 }
+
 .sidebar::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(0,0%,67%);
+    background-color: hsl(0, 0%, 67%);
 }
 
-.nav-overlay{
+.nav-overlay {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
-    right:0;
+    right: 0;
     background-color: #0000007a;
     z-index: 999;
     visibility: hidden;
     opacity: 0;
     transition: 0.2s ease-in;
 }
-@media (max-width: $breakpoint-medium){
-    .nav-overlay.open{
+
+@media (max-width: $breakpoint-medium) {
+    .nav-overlay.open {
         visibility: visible;
         opacity: 1;
     }
 }
 
 @media (max-width: 790px) {
-    .sidebar{
+    .sidebar {
         transform: translateX(-100%);
         position: fixed;
         z-index: 999;

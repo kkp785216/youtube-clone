@@ -27,7 +27,10 @@ header {
         flex-shrink: 0;
     }
 
-    .header_left>*,
+    .header_left img {
+        padding: 8px;
+    }
+
     .header_right>* {
         padding: 8px;
     }
@@ -88,7 +91,7 @@ header {
                 font-weight: 400;
                 box-shadow: inset 0px 2px 6px -3px #cccccc;
             }
-            
+
             input:focus {
                 padding-left: 40px;
                 box-shadow: inset 0px 1px 3px 1px #cccccc;
