@@ -1,27 +1,81 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import request from '../../Database/Api'
 import './_video.scss'
+import moment from 'moment'
 
-const Video = () => {
+const Video = ({ videos }) => {
+
+  const count = (input) => {
+    if (input < 1000) {
+      return input
+    }
+    else if (input < 1000000) {
+      return parseInt(input / 1000) + "K"
+    }
+    else if (input < 1000000000) {
+      return parseInt(input / 1000000) + "M"
+    }
+    else if (input < 1000000000000) {
+      return parseInt(input / 1000000000) + "B"
+    }
+  }
+
+// const seconds = moment.duration(videos.contentDetails.duration).asSeconds();
+// const _duration = moment.utc(seconds * 1000).format("mm:ss");
+
+const [channelImg , setChannelImg] = useState("");
+const [videoDetails , setVideoDetails] = useState({});
+
+  // Fetch more video details
+  useEffect(() => {
+    const get_video_details = async () => {
+      const res = await request('/videos', {
+        params: {
+          part: 'contentDetails,statistics',
+          id: videos.id.videoId
+        }
+      });
+      console.log(res.data.items[0]);
+      setVideoDetails(res.data.items[0]);
+    }
+    get_video_details();
+  }, [videos.id.videoId]);
+
+  // fetch channel icons
+  useEffect(() => {
+    const get_channel_details = async () => {
+      const res = await request('/channels', {
+        params: {
+          part: 'snippet',
+          id: videos.snippet.channelId
+        }
+      });
+      setChannelImg(res.data.items[0].snippet.thumbnails.default.url);
+    }
+    get_channel_details();
+  }, [videos.snippet.channelId]);
+
+
   return (
     <div className="video">
 
       <div className="video__top">
-        <img src={"https://i.ytimg.com/vi/4F2m91eKmts/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDaafw-b__ydDsmTRZgUB1sFb4i7A"} width="100%" alt="" />
-        <span>02:57</span>
+        <img src={videos.snippet.thumbnails.high.url} width="100%" alt="" />
+        {/* <span>{_duration}</span> */}
       </div>
 
       <div className="video__details">
         <div className="video__channel">
-          <img src={"https://yt3.ggpht.com/6Gng7cjMwXWCiPTnOSKkq7yhSGEdMMKFSUNN5evj8UTHcUvU-csrbkzggaERvBr0itptDqsiRA=s68-c-k-c0x00ffffff-no-rj"} width="33px" alt="" />
+          <img src={channelImg} width="33px" alt="" />
         </div>
 
         <div className="video__title">
-          <h3>Create a Professional MERN Full Stack Web App</h3>
+          <h3>{videos.snippet.title}</h3>
           <div className='video__title__info'>
-            <span>Code With Harry</span>
-            <span>5M views</span>
+            <span>{videos.snippet.channelTitle}</span>
+            {/* <span>{count(videos.statistics.viewCount) + " views"}</span> */}
             <span> • </span>
-            <span>5 days ago</span>
+            <span>{moment(videos.snippet.publishedAt).fromNow()}</span>
           </div>
         </div>
       </div>

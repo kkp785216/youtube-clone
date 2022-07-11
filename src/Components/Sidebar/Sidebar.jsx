@@ -3,15 +3,19 @@ import './_sidebar.scss'
 import { MdHome, MdSubscriptions, MdThumbUp, MdHistory, MdLibraryBooks, MdSentimentDissatisfied, MdExitToApp } from 'react-icons/md'
 import { AiOutlineMenu } from 'react-icons/ai'
 import header_logo from "../../Media/img/youtube_logo.svg"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../Redux/Actions/auth.action'
 
 const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
 
+  const Navigate = useNavigate();
   const dispatch = useDispatch()
   const handleLogout = () => {
     dispatch(logout());
+    setTimeout(() => {
+      Navigate('/auth');
+    }, 0);
   }
 
   return (
