@@ -4,8 +4,16 @@ import { MdHome, MdSubscriptions, MdThumbUp, MdHistory, MdLibraryBooks, MdSentim
 import { AiOutlineMenu } from 'react-icons/ai'
 import header_logo from "../../Media/img/youtube_logo.svg"
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../Redux/Actions/auth.action'
 
 const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
+
+  const dispatch = useDispatch()
+  const handleLogout = () => {
+    dispatch(logout());
+  }
+
   return (
     <>
       {
@@ -52,7 +60,7 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
 
               <hr />
 
-              <li onClick={() => { handleClose(window.innerWidth) }} title="Logout">
+              <li onClick={() => { handleClose(window.innerWidth); handleLogout()}} title="Logout">
                 <MdExitToApp size={23} />
                 <span>Logout</span>
               </li>
