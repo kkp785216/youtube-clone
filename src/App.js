@@ -33,6 +33,7 @@ const Layout = ({ children }) => {
 
 
 function App() {
+  console.log(process.env.REACT_APP_APIKEY)
 
   return (
     <Router>
