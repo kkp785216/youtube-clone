@@ -9,7 +9,7 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
         const res = await request("/search", {
             params:{
                 part: "snippet",
-                q: keyword === 'All' ? '' : keyword,
+                q: keyword === 'All' ? 'Popular Videos' : keyword,
                 type: 'video',
                 maxResults: 20,
                 pageToken: getState().homeVideos.nextPageToken,
@@ -22,7 +22,8 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
                 videos: res.data.items,
                 nextPageToken: res.data.nextPageToken,
                 pageInfo: res.data.pageInfo,
-                category: keyword
+                category: keyword,
+                etag: res.data.etag
             }
         })
 

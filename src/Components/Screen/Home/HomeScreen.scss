@@ -3,6 +3,7 @@
     &.row{
         margin: 0;
         padding: 16px;
+        min-height: calc(100vh - 115px);
     }
     &.row>*{
         padding: 8px;

@@ -29,6 +29,7 @@ const CategoriesBar = () => {
   const handleClick = (value) => {
     setActiveElement(value);
     dispatch(getVideosByCategory(value));
+    console.log(value)
   }
 
   return (<>

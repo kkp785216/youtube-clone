@@ -13,10 +13,11 @@ export const homeVideosReducer = (state = {
         case HOME_VIDEOS_SUCCESS:
             return {
                 ...state,
-                videos: payload.videos,
+                videos: state.activeCategory === payload.category?[...state.videos, ...payload.videos] : payload.videos,
                 nextPageToken: payload.nextPageToken,
                 pageInfo: payload.pageInfo,
-                activeCategory: payload.category
+                activeCategory: payload.category,
+                loading: false
             }
 
         case HOME_VIDEOS_FAIL:

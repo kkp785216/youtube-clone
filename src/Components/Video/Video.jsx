@@ -30,7 +30,6 @@ const Video = ({ videos }) => {
           id: videos.id.videoId
         }
       });
-      console.log(res.data.items[0]);
       setVideoDetails(res.data.items[0]);
     }
     get_video_details();
@@ -56,7 +55,6 @@ const Video = ({ videos }) => {
     }
     get_channel_details();
   }, [videos.snippet.channelId]);
-
 
   return (
     <div className="video">

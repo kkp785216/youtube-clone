@@ -4,8 +4,7 @@ import Home from './Components/Screen/Home/HomeScreen';
 import './_app.scss'
 import { useState, useEffect } from 'react';
 import Login from './Components/Screen/Login/Login'
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux/es/exports';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 
 const Layout = ({ children }) => {
@@ -34,15 +33,6 @@ const Layout = ({ children }) => {
 
 
 function App() {
-
-  // If user is not authenticated then redirect to login page
-  const Navigatee = useNavigate();
-  const { accessToken, loading } = useSelector(state => state.auth);
-  useEffect(() => {
-    if (!loading && !accessToken) {
-      Navigatee('/auth');
-    }
-  }, [accessToken, loading, Navigatee]);
 
   return (
     <Routes>

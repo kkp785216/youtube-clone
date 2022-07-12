@@ -7,6 +7,7 @@ import { BiArrowBack } from 'react-icons/bi'
 import header_logo from "../../Media/img/youtube_logo.svg"
 import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import {FaRegUserCircle} from 'react-icons/fa'
 
 const Header = (props) => {
 
@@ -35,7 +36,7 @@ const Header = (props) => {
           <div className="header_icons header_right">
             <MdNotifications size={40} />
             <MdApps size={40} />
-            <img src={user ? user.photoUrl : ''} alt="avtar" width="50px" height="50px" title={user ? user.name:''}/>
+            {user ? <img src={user.photoUrl} alt="avtar" width="50px" height="50px" title={user.name}/> : <FaRegUserCircle size={45}  />}
           </div>
         </div>
       </header>

@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import './_sidebar.scss'
 import { MdHome, MdSubscriptions, MdThumbUp, MdHistory, MdLibraryBooks, MdExitToApp } from 'react-icons/md'
 import { AiFillApi } from 'react-icons/ai'
@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../Redux/Actions/auth.action'
 import { selectApi } from '../../Redux/Actions/api.action'
+import { apiKeys } from '../../Database/Api'
 
 const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
 
@@ -15,21 +16,26 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
   const dispatch = useDispatch()
   const handleLogout = () => {
     dispatch(logout());
-    setTimeout(() => {
-      Navigate('/auth');
-    }, 0);
+    localStorage.removeItem('ytc_access_token');
+    localStorage.removeItem('ytc_user');
+    localStorage.removeItem('ytc_loading');
+  }
+  const handleLogin = () => {
+    Navigate('/auth');
   }
 
   // Change api key if api limit has been exeeded
-  const {apiState} = useSelector(state=>state.apiState)
+  const { apiState } = useSelector(state => state.apiState)
   const handleChangeApi = (e) => {
     dispatch(selectApi(e.target.value));
     window.localStorage.setItem('selectApi', e.target.value);
   }
-  useEffect(()=> {
+  useEffect(() => {
     let currentApi = window.localStorage.getItem('selectApi') ? window.localStorage.getItem('selectApi') : "1";
     dispatch(selectApi(currentApi));
-  },[dispatch]);
+  }, [dispatch]);
+
+  const { user } = useSelector(state => state.auth);
 
   return (
     <>
@@ -70,27 +76,36 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
                 <span>Library</span>
               </Link>
 
-              <li onClick={() => { handleClose(window.innerWidth) }} title="I don't know">
+              <li title="Api Sources">
                 <div className="d-flex position-relative api-box">
                   <AiFillApi size={23} />
-                  <sub className='position-absolute top-0' style={{right: '-8px'}}>{apiState}</sub>
+                  <sub className='position-absolute top-0' style={{ right: '-8px' }}>{apiState}</sub>
                 </div>
                 <span>
                   <select name="changeApi" id="changeApi" onChange={handleChangeApi} value={apiState}>
-                    <option value="1">Api 1</option>
-                    <option value="2">Api 2</option>
-                    <option value="3">Api 3</option>
-                    <option value="4">Api 4</option>
+                    {
+                      apiKeys.map((element, index) => {
+                        return (
+                          <option value={index + 1} key={index}>Api {index + 1}</option>
+                        )
+                      })
+                    }
                   </select>
                 </span>
               </li>
 
               <hr />
 
+              {user ? 
               <li onClick={() => { handleClose(window.innerWidth); handleLogout() }} title="Logout">
                 <MdExitToApp size={23} />
                 <span>Logout</span>
+              </li>:
+              <li onClick={() => { handleClose(window.innerWidth); handleLogin() }} title="Logout">
+                <MdExitToApp size={23} />
+                <span>Login</span>
               </li>
+              }
 
               <hr />
             </nav>
