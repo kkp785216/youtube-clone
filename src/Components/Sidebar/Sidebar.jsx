@@ -12,7 +12,6 @@ import { apiKeys } from '../../Database/Api'
 
 const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
 
-  const Navigate = useNavigate();
   const dispatch = useDispatch()
   const handleLogout = () => {
     dispatch(logout());
@@ -20,6 +19,8 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
     localStorage.removeItem('ytc_user');
     localStorage.removeItem('ytc_loading');
   }
+  
+  const Navigate = useNavigate();
   const handleLogin = () => {
     Navigate('/auth');
   }

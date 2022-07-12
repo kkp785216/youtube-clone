@@ -11,11 +11,13 @@ import SkeletonVideo from '../../Skeletons/SkeletonVideo'
 const Home = () => {
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getVideosByCategory("All"));
-  }, [dispatch]);
-
+  
   const { videos, activeCategory, loading } = useSelector(state => state.homeVideos);
+  useEffect(() => {
+    if(videos.length === 0){
+      dispatch(getVideosByCategory(activeCategory));
+    }
+  }, [dispatch,activeCategory,videos.length]);
 
   const fetchData = () => {
     dispatch(getVideosByCategory(activeCategory));
@@ -25,7 +27,7 @@ const Home = () => {
   return (
     <div>
       <CategoriesBar />
-      <div>
+      <div key={activeCategory}>
         <InfiniteScroll
           dataLength={videos.length}
           hasMore={true}

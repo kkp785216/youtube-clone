@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 const Login = () => {
   const dispatch = useDispatch();
 
-  const accessToken = useSelector(state=>state.auth.accessToken)
+  const accessToken = useSelector(state=>state.auth.accessToken);
 
   const handleLogin = () => {
     dispatch(login());
@@ -19,7 +19,7 @@ const Login = () => {
     if(accessToken) {
       Navigate('/');
     }
-  }, [accessToken, Navigate])
+  }, [accessToken, Navigate]);
   
   return (
     <div className="login">
