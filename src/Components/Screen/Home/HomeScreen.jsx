@@ -13,8 +13,7 @@ const Home = () => {
     dispatch(getVideosByCategory("All"));
   },[dispatch]);
 
-  const {videos} = useSelector(state=>state.homeVideos)
-  console.log(videos)
+  const {videos} = useSelector(state=>state.homeVideos);
   return (
     <div>
       <CategoriesBar />

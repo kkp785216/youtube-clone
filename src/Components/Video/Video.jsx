@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import request from '../../Database/Api'
 import './_video.scss'
 import moment from 'moment'
@@ -20,12 +20,7 @@ const Video = ({ videos }) => {
     }
   }
 
-// const seconds = moment.duration(videos.contentDetails.duration).asSeconds();
-// const _duration = moment.utc(seconds * 1000).format("mm:ss");
-
-const [channelImg , setChannelImg] = useState("");
-const [videoDetails , setVideoDetails] = useState({});
-
+  const [videoDetails, setVideoDetails] = useState(null);
   // Fetch more video details
   useEffect(() => {
     const get_video_details = async () => {
@@ -41,6 +36,13 @@ const [videoDetails , setVideoDetails] = useState({});
     get_video_details();
   }, [videos.id.videoId]);
 
+  function duration(input) {
+    const seconds = moment.duration(input).asSeconds();
+    const _duration = moment.utc(seconds * 1000).format("mm:ss");
+    return _duration;
+  }
+
+  const [channelImg, setChannelImg] = useState("");
   // fetch channel icons
   useEffect(() => {
     const get_channel_details = async () => {
@@ -61,7 +63,7 @@ const [videoDetails , setVideoDetails] = useState({});
 
       <div className="video__top">
         <img src={videos.snippet.thumbnails.high.url} width="100%" alt="" />
-        {/* <span>{_duration}</span> */}
+        <span>{videoDetails && duration(videoDetails.contentDetails.duration)}</span>
       </div>
 
       <div className="video__details">
@@ -73,7 +75,7 @@ const [videoDetails , setVideoDetails] = useState({});
           <h3>{videos.snippet.title}</h3>
           <div className='video__title__info'>
             <span>{videos.snippet.channelTitle}</span>
-            {/* <span>{count(videos.statistics.viewCount) + " views"}</span> */}
+            <span>{count(videoDetails && videoDetails.statistics.viewCount) + " views"}</span>
             <span> • </span>
             <span>{moment(videos.snippet.publishedAt).fromNow()}</span>
           </div>

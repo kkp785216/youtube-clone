@@ -5,10 +5,13 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { MdNotifications, MdApps } from 'react-icons/md'
 import { BiArrowBack } from 'react-icons/bi'
 import header_logo from "../../Media/img/youtube_logo.svg"
-import user_logo from "../../Media/img/user.png"
 import {Link} from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Header = (props) => {
+
+  const { user } = useSelector(state => state.auth);
+
   return (
     <>
       <header className='header'>
@@ -32,7 +35,7 @@ const Header = (props) => {
           <div className="header_icons header_right">
             <MdNotifications size={40} />
             <MdApps size={40} />
-            <img src={user_logo} alt="avtar" width="50px" />
+            <img src={user.photoUrl ? user.photoUrl : ''} alt="avtar" width="50px" height="50px" title={user.name ? user.name:''}/>
           </div>
         </div>
       </header>
