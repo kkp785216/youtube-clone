@@ -73,14 +73,14 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
               <li onClick={() => { handleClose(window.innerWidth) }} title="I don't know">
                 <div className="d-flex position-relative api-box">
                   <AiFillApi size={23} />
-                  <sub>{apiState}</sub>
+                  <sub className='position-absolute top-0' style={{right: '-8px'}}>{apiState}</sub>
                 </div>
                 <span>
                   <select name="changeApi" id="changeApi" onChange={handleChangeApi} value={apiState}>
-                    <option value="1">API 1</option>
-                    <option value="2">API 2</option>
-                    <option value="3">API 3</option>
-                    <option value="4">API 4</option>
+                    <option value="1">Api 1</option>
+                    <option value="2">Api 2</option>
+                    <option value="3">Api 3</option>
+                    <option value="4">Api 4</option>
                   </select>
                 </span>
               </li>

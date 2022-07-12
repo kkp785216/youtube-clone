@@ -35,7 +35,7 @@ const Header = (props) => {
           <div className="header_icons header_right">
             <MdNotifications size={40} />
             <MdApps size={40} />
-            <img src={user.photoUrl ? user.photoUrl : ''} alt="avtar" width="50px" height="50px" title={user.name ? user.name:''}/>
+            <img src={user ? user.photoUrl : ''} alt="avtar" width="50px" height="50px" title={user ? user.name:''}/>
           </div>
         </div>
       </header>

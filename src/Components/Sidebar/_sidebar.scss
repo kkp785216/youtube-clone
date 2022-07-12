@@ -23,6 +23,12 @@
             font-weight: 500;
             letter-spacing: 0.4px;
             display: none;
+
+            select{
+                outline: none;
+                border: none;
+                font-weight: 500;
+            }
         }
 
         &:hover {

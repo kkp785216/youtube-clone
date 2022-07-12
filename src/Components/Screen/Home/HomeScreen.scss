@@ -17,12 +17,17 @@
     }
     @media (max-width: 886px) {
         &.row>*{
-            width: 50%
+            width: 50%;
         }
     }
     @media (max-width: 512px) {
+        &.row{
+            width: 100%;
+            padding: 16px 0;
+        }
         &.row>*{
-            width: 100%
+            width: 100%;
+            padding: 8px 0;
         }
     }
 }
