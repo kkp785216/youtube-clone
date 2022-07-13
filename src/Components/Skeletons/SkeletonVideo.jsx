@@ -6,7 +6,7 @@ import './SkeletonVideo.scss'
 const SkeletonVideo = () => {
     return (
         <div className='skeleton-wrapper'>
-            <SkeletonTheme>
+            <SkeletonTheme baseColor='#ebebeb' highlightColor='#f5f5f5'>
                 <div className='position-relative overflow-hidden' style={{ paddingBottom: '56.25%', height: '0'}}>
                     <Skeleton width='100%' className='position-absolute' style={{ height: '-webkit-fill-available' }} />
                 </div>

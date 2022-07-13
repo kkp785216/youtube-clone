@@ -4,7 +4,7 @@ import { MdHome, MdSubscriptions, MdThumbUp, MdHistory, MdLibraryBooks, MdExitTo
 import { AiFillApi } from 'react-icons/ai'
 import { AiOutlineMenu } from 'react-icons/ai'
 import header_logo from "../../Media/img/youtube_logo.svg"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../Redux/Actions/auth.action'
 import { selectApi } from '../../Redux/Actions/api.action'
@@ -18,11 +18,6 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
     localStorage.removeItem('ytc_access_token');
     localStorage.removeItem('ytc_user');
     localStorage.removeItem('ytc_loading');
-  }
-  
-  const Navigate = useNavigate();
-  const handleLogin = () => {
-    Navigate('/auth');
   }
 
   // Change api key if api limit has been exeeded
@@ -97,15 +92,15 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
 
               <hr />
 
-              {user ? 
-              <li onClick={() => { handleClose(window.innerWidth); handleLogout() }} title="Logout">
-                <MdExitToApp size={23} />
-                <span>Logout</span>
-              </li>:
-              <li onClick={() => { handleClose(window.innerWidth); handleLogin() }} title="Logout">
-                <MdExitToApp size={23} />
-                <span>Login</span>
-              </li>
+              {user ?
+                <li onClick={() => { handleClose(window.innerWidth); handleLogout() }} title="Logout">
+                  <MdExitToApp size={23} />
+                  <span>Logout</span>
+                </li> :
+                <Link to='/auth' onClick={() => { handleClose(window.innerWidth) }} title="Login">
+                  <MdExitToApp size={23} />
+                  <span>Login</span>
+                </Link>
               }
 
               <hr />

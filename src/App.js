@@ -42,6 +42,11 @@ function App() {
           <Home />
         </Layout>
       } />
+      <Route exact path='/feed/subscription' element={
+        <Layout>
+          <h1>Subscription</h1>
+        </Layout>
+      } />
 
       <Route exact path='/auth' element={<Login />} />
 

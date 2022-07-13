@@ -12,7 +12,7 @@ const Home = () => {
 
   const dispatch = useDispatch();
   
-  const { videos, activeCategory, loading } = useSelector(state => state.homeVideos);
+  const { videos, activeCategory, loading, moreDetails, channelDetails } = useSelector(state => state.homeVideos);
   useEffect(() => {
     if(videos.length === 0){
       dispatch(getVideosByCategory(activeCategory));
@@ -49,7 +49,7 @@ const Home = () => {
           {!loading ?
             videos.map((videos, index) => (
               <Col key={index}>
-                <Video videos={videos} loading={loading} />
+                <Video videos={videos} loading={loading} moreDetails={moreDetails[index]} channelDetails={channelDetails[index]} />
               </Col>
             )) :
             [...new Array(20)].map((element, index) => (

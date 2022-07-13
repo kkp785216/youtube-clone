@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import request from '../../Database/Api'
 import './_video.scss'
 import moment from 'moment'
 
-const Video = ({ videos }) => {
+const Video = ({ videos, moreDetails, channelDetails }) => {
 
   const count = (input) => {
     if (input < 1000) {
@@ -20,41 +19,28 @@ const Video = ({ videos }) => {
     }
   }
 
-  const [videoDetails, setVideoDetails] = useState(null);
-  // Fetch more video details
-  useEffect(() => {
-    const get_video_details = async () => {
-      const res = await request('/videos', {
-        params: {
-          part: 'contentDetails,statistics',
-          id: videos.id.videoId
-        }
-      });
-      setVideoDetails(res.data.items[0]);
-    }
-    get_video_details();
-  }, [videos.id.videoId]);
-
   function duration(input) {
     const seconds = moment.duration(input).asSeconds();
     const _duration = moment.utc(seconds * 1000).format("mm:ss");
     return _duration;
   }
 
-  const [channelImg, setChannelImg] = useState("");
-  // fetch channel icons
+  // Use more video detals
+  const [videoDetails, setVideoDetails] = useState(null);
   useEffect(() => {
-    const get_channel_details = async () => {
-      const res = await request('/channels', {
-        params: {
-          part: 'snippet',
-          id: videos.snippet.channelId
-        }
-      });
+    moreDetails.then((res) => {
+      setVideoDetails(res.data.items[0])
+    });
+  }, [moreDetails]);
+
+  // fetch channel icons
+  const [channelImg, setChannelImg] = useState("");
+  useEffect(() => {
+    channelDetails.then((res) => {
       setChannelImg(res.data.items[0].snippet.thumbnails.default.url);
-    }
-    get_channel_details();
-  }, [videos.snippet.channelId]);
+    });
+  }, [channelDetails]);
+
 
   return (
     <div className="video">

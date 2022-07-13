@@ -2,6 +2,8 @@ import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS } from "../A
 
 export const homeVideosReducer = (state = {
     videos: [],
+    moreDetails: [],
+    channelDetails: [],
     loading: false.valueOf,
     nextPageToken: null,
     pageInfo: null,
@@ -14,10 +16,12 @@ export const homeVideosReducer = (state = {
             return {
                 ...state,
                 videos: state.activeCategory === payload.category?[...state.videos, ...payload.videos] : payload.videos,
+                moreDetails: state.activeCategory === payload.category?[...state.moreDetails, ...payload.moreDetails] : payload.moreDetails,
+                channelDetails: state.activeCategory === payload.category?[...state.channelDetails, ...payload.channelDetails] : payload.channelDetails,
                 nextPageToken: payload.nextPageToken,
                 pageInfo: payload.pageInfo,
                 activeCategory: payload.category,
-                loading: false
+                loading: false,
             }
 
         case HOME_VIDEOS_FAIL:
