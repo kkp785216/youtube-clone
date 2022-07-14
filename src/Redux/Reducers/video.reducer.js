@@ -7,7 +7,7 @@ export const homeVideosReducer = (state = {
     loading: false.valueOf,
     nextPageToken: null,
     pageInfo: null,
-    activeCategory: 'All'
+    videoCategory: 'All'
 }, action) => {
     const { type, payload } = action;
 
@@ -15,12 +15,12 @@ export const homeVideosReducer = (state = {
         case HOME_VIDEOS_SUCCESS:
             return {
                 ...state,
-                videos: state.activeCategory === payload.category?[...state.videos, ...payload.videos] : payload.videos,
-                moreDetails: state.activeCategory === payload.category?[...state.moreDetails, ...payload.moreDetails] : payload.moreDetails,
-                channelDetails: state.activeCategory === payload.category?[...state.channelDetails, ...payload.channelDetails] : payload.channelDetails,
+                videos: state.videoCategory === payload.category?[...state.videos, ...payload.videos] : payload.videos,
+                moreDetails: state.videoCategory === payload.category?[...state.moreDetails, ...payload.moreDetails] : payload.moreDetails,
+                channelDetails: state.videoCategory === payload.category?[...state.channelDetails, ...payload.channelDetails] : payload.channelDetails,
                 nextPageToken: payload.nextPageToken,
                 pageInfo: payload.pageInfo,
-                activeCategory: payload.category,
+                videoCategory: payload.category,
                 loading: false,
             }
 

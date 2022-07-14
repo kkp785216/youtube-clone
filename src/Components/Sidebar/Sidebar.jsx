@@ -21,7 +21,7 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
   }
 
   // Change api key if api limit has been exeeded
-  const { apiState } = useSelector(state => state.apiState)
+  const { apiState } = useSelector(state => state.apiState);
   const handleChangeApi = (e) => {
     dispatch(selectApi(e.target.value));
     window.localStorage.setItem('selectApi', e.target.value);

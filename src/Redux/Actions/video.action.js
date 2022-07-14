@@ -1,7 +1,7 @@
 import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS } from "../ActionType"
 import request from "../../Database/Api"
 
-export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
+export const getVideosByCategory = (keyword, maxresult) => async (dispatch, getState) => {
     try {
         dispatch({
             type: HOME_VIDEOS_REQUEST
@@ -11,7 +11,7 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
                 part: "snippet",
                 q: keyword === 'All' ? 'Popular Videos' : keyword,
                 type: 'video',
-                maxResults: 20,
+                maxResults: maxresult,
                 pageToken: getState().homeVideos.nextPageToken,
             }
         });

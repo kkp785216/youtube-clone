@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import './_categories_bar.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { getVideosByCategory } from '../../Redux/Actions/video.action'
+import { useDispatch } from 'react-redux'
+import { selectCategory } from '../../Redux/Actions/category.action'
 
 const keywords = [
   "All",
@@ -25,12 +25,11 @@ const keywords = [
 const CategoriesBar = () => {
 
   const dispatch = useDispatch();
-  const { activeCategory } = useSelector(state => state.homeVideos);
-  const [activeElement, setActiveElement] = useState(activeCategory ? activeCategory : 'All');
+  const [activeElement, setActiveElement] = useState('All');
   const handleClick = (value) => {
     setActiveElement(value);
-    dispatch(getVideosByCategory(value));
-    console.log(value)
+    dispatch(selectCategory(value));
+    window.scrollTo({top: 0, ScrollBehavior: 'auto'})
   }
 
   return (<>

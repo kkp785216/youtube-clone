@@ -9,19 +9,18 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import SkeletonVideo from '../../Skeletons/SkeletonVideo'
 
 const Home = () => {
-
   const dispatch = useDispatch();
-  
-  const { videos, activeCategory, loading, moreDetails, channelDetails } = useSelector(state => state.homeVideos);
+  const { videos, loading, moreDetails, channelDetails, videoCategory } = useSelector(state => state.homeVideos);
+  const {activeCategory} = useSelector(state => state.catgoryState);
+
   useEffect(() => {
-    if(videos.length === 0){
-      dispatch(getVideosByCategory(activeCategory));
+    if (videos.length === 0 || videoCategory !== activeCategory) {
+      dispatch(getVideosByCategory(activeCategory, 20));
     }
-  }, [dispatch,activeCategory,videos.length]);
+  }, [dispatch, activeCategory, videoCategory, videos.length]);
 
   const fetchData = () => {
-    dispatch(getVideosByCategory(activeCategory));
-    console.log(activeCategory)
+    dispatch(getVideosByCategory(activeCategory, 8));
   }
 
   return (
@@ -32,13 +31,19 @@ const Home = () => {
           dataLength={videos.length}
           hasMore={true}
           next={fetchData}
-          loader={
+          loader={<>
+            {[...new Array(videos.length >= 20 ? 8 : 20)].map((element, index) => (
+              <Col key={index}>
+              {console.log(videos.length)}
+                <SkeletonVideo />
+              </Col>
+            ))}
             <div className="d-flex w-100 justify-content-center">
-              <div className="spinner-border" role="status">
+              <div className="spinner-border" role="status" style={{ color: '#878787' }}>
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>
-          }
+          </>}
           className="video-container row"
           endMessage={
             <p style={{ textAlign: 'center' }}>
@@ -46,15 +51,10 @@ const Home = () => {
             </p>
           }
         >
-          {!loading ?
+          {
             videos.map((videos, index) => (
               <Col key={index}>
                 <Video videos={videos} loading={loading} moreDetails={moreDetails[index]} channelDetails={channelDetails[index]} />
-              </Col>
-            )) :
-            [...new Array(20)].map((element, index) => (
-              <Col key={index}>
-                <SkeletonVideo />
               </Col>
             ))
           }
