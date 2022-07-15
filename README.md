@@ -7,13 +7,13 @@
 <img src="https://i.imgur.com/tCOenzr.png" />
 
 ### Things used in this Project
-1). React
-2). Redux
-3). Firebase
-4). Bootstrap
-5). Scss
-6). React infinite scroll component
-7). React loading skeleton
+<p>1). React</p>
+<p>2). Redux</p>
+<p>3). Firebase</p>
+<p>4). Bootstrap</p>
+<p>5). Scss</p>
+<p>6). React infinite scroll component</p>
+<p>7). React loading skeleton</p>
 
 <p align="left">
     <a href="https://getbootstrap.com" target="_blank" rel="noreferrer">
