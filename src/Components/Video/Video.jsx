@@ -44,12 +44,11 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
         id: res.data.items[0].id
       });
     });
-  }, [channelDetails]);
+  }, [channelDetails, channel]);
 
 
   return (
-    <Link to='/watch' className="video">
-
+    <Link to={`/watch?v=${videos ? videos.id.videoId : ''}`} className="video">
       <div className="video__top">
         <img src={videos.snippet.thumbnails.high.url} width="100%" alt="" />
         <span>{videoDetails && duration(videoDetails.contentDetails.duration)}</span>

@@ -1,13 +1,17 @@
 import React from 'react'
+import './Watch.scss'
+import { useSearchParams } from 'react-router-dom'
 
 const Watch = () => {
+
+  let [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <div className="row">
       <div className="col-8">
         <div className="watch-screen-player">
           <iframe
-            src="https://www.youtube.com/embed/ER9SspLe4Hg?autoplay=1"
+            src={`https://www.youtube.com/embed/${searchParams.get('v')}?autoplay=1`}
             title='Youtube Watch'
             frameBorder="0"
             allowFullScreen
