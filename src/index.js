@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router basename='react5'>
+      <Router basename='youtube-clone'>
         <App />
       </Router>
     </Provider>
