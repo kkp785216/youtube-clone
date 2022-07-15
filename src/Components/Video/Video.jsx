@@ -44,7 +44,7 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
         id: res.data.items[0].id
       });
     });
-  }, [channelDetails, channel]);
+  }, [channelDetails]);
 
 
   return (

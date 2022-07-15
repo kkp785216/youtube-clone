@@ -19,8 +19,8 @@ export const apiKeys = [
 const request = axios.create({
     baseURL: "https://youtube.googleapis.com/youtube/v3",
     params: {
-        // key: apiKeys[parseInt(state) - 1]
-        key: apiKeys[25]
+        key: apiKeys[parseInt(state) - 1]
+        // key: apiKeys[25]
     }
 });
 
