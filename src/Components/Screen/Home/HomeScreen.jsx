@@ -39,7 +39,7 @@ const Home = () => {
               </Col>
             ))}
             <div className="d-flex w-100 justify-content-center">
-              <div className="spinner-border" role="status" style={{ color: '#878787' }}>
+              <div className="spinner-border" role="status" style={{ color: '#525252' }}>
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>

@@ -5,6 +5,7 @@ import './_app.scss'
 import { useState, useEffect } from 'react';
 import Login from './Components/Screen/Login/Login'
 import { Routes, Route, Navigate } from 'react-router-dom';
+import Watch from './Components/Screen/Watch/Watch';
 
 
 const Layout = ({ children }) => {
@@ -46,6 +47,12 @@ function App() {
       <Route exact path='/search' element={
         <Layout>
           <Home />
+        </Layout>
+      } />
+
+      <Route exact path='/watch' element={
+        <Layout>
+          <Watch />
         </Layout>
       } />
 

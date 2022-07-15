@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './_video.scss'
 import moment from 'moment'
+import {Link} from 'react-router-dom'
 
 const Video = ({ videos, moreDetails, channelDetails }) => {
 
@@ -34,16 +35,20 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
   }, [moreDetails]);
 
   // fetch channel icons
-  const [channelImg, setChannelImg] = useState("");
+  const [channel, setChannel] = useState({channelImg: '', id: ''});
   useEffect(() => {
     channelDetails.then((res) => {
-      setChannelImg(res.data.items[0].snippet.thumbnails.default.url);
+      setChannel({
+        ...channel,
+        channelImg: res.data.items[0].snippet.thumbnails.default.url,
+        id: res.data.items[0].id
+      });
     });
   }, [channelDetails]);
 
 
   return (
-    <div className="video">
+    <Link to='/watch' className="video">
 
       <div className="video__top">
         <img src={videos.snippet.thumbnails.high.url} width="100%" alt="" />
@@ -51,14 +56,14 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
       </div>
 
       <div className="video__details">
-        <div className="video__channel">
-          <img src={channelImg} width="33px" alt="" />
-        </div>
+        <Link to={`/c/${channel.id}`} className="video__channel">
+          <img src={channel.channelImg} width="33px" alt="" />
+        </Link>
 
         <div className="video__title">
           <h3>{videos.snippet.title}</h3>
           <div className='video__title__info'>
-            <span>{videos.snippet.channelTitle}</span>
+            <span><Link className='channel__title' to={`/c/${channel.id}`}>{videos.snippet.channelTitle}</Link></span>
             <span>{count(videoDetails && videoDetails.statistics.viewCount) + " views"}</span>
             <span> • </span>
             <span>{moment(videos.snippet.publishedAt).fromNow()}</span>
@@ -66,7 +71,7 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
         </div>
       </div>
 
-    </div>
+    </Link>
   )
 }
 
