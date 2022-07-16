@@ -1,10 +1,10 @@
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS } from "../ActionType"
+import { OFFLINE_HOME_VIDEOS_FAIL, OFFLINE_HOME_VIDEOS_REQUEST, OFFLINE_HOME_VIDEOS_SUCCESS } from "../ActionType"
 import request from "../../Database/Api"
 
-export const getVideosByCategory = (keyword, maxresult) => async (dispatch, getState) => {
+export const getOfflineVideosByCategory = (keyword, maxresult) => async (dispatch, getState) => {
     try {
         dispatch({
-            type: HOME_VIDEOS_REQUEST
+            type: OFFLINE_HOME_VIDEOS_REQUEST
         });
         const res = await request("/search", {
             params: {
@@ -17,10 +17,7 @@ export const getVideosByCategory = (keyword, maxresult) => async (dispatch, getS
         });
 
         const moreDetailsArr = [];
-        // const printMoreDetailsArr = [];
-        const channelDetailsArr = [];
-        // const printChannelDetailsArr = [];
-        res.data.items.forEach((videos, index) => {
+        res.data.items.forEach((videos) => {
             const get_video_details = request("/videos", {
                 params: {
                     part: 'contentDetails,statistics',
@@ -28,8 +25,10 @@ export const getVideosByCategory = (keyword, maxresult) => async (dispatch, getS
                 }
             });
             moreDetailsArr.push(get_video_details);
-            // get_video_details.then(data => { printMoreDetailsArr.push(data) });
+        });
 
+        const channelDetailsArr = [];
+        res.data.items.forEach((videos) => {
             const get_channel_details = request("/channels", {
                 params: {
                     part: 'snippet',
@@ -37,14 +36,10 @@ export const getVideosByCategory = (keyword, maxresult) => async (dispatch, getS
                 }
             });
             channelDetailsArr.push(get_channel_details);
-            // get_channel_details.then(data => {
-                // printChannelDetailsArr.push(data);
-                // if (index + 1 === res.data.items.length) {console.log({videos: res.data.items, moreDetails: printMoreDetailsArr, channelDetails: printChannelDetailsArr}) }
-            // });
         });
 
         dispatch({
-            type: HOME_VIDEOS_SUCCESS,
+            type: OFFLINE_HOME_VIDEOS_SUCCESS,
             payload: {
                 videos: res.data.items,
                 nextPageToken: res.data.nextPageToken,
@@ -59,7 +54,7 @@ export const getVideosByCategory = (keyword, maxresult) => async (dispatch, getS
     } catch (error) {
         console.log(error);
         dispatch({
-            type: HOME_VIDEOS_FAIL,
+            type: OFFLINE_HOME_VIDEOS_FAIL,
             payload: error.message
         });
     }
