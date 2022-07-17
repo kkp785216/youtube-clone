@@ -1,8 +1,8 @@
 import { SELECT_CATEGORY } from "../ActionType";
 
-export const selectCategory = (value) => dispatch => {
+export const selectCategory = (title, id) => dispatch => {
     dispatch({
         type: SELECT_CATEGORY,
-        payload: value
+        payload: {id, title}
     });
 }

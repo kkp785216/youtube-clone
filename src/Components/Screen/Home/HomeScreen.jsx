@@ -14,19 +14,20 @@ const Home = () => {
   const {activeCategory} = useSelector(state => state.catgoryState);
 
   useEffect(() => {
-    if (videos.length === 0 || videoCategory !== activeCategory) {
-      activeCategory === 'All' ? dispatch(getVideosList(activeCategory, 20)) : dispatch(getVideosByCategory(activeCategory, 20));
+    if (videos.length === 0 || videoCategory !== activeCategory.title) {
+      dispatch(getVideosList(activeCategory, 20))
+      console.log(activeCategory)
     }
   }, [dispatch, activeCategory, videoCategory, videos.length]);
 
   const fetchData = () => {
-    activeCategory === 'All' ? dispatch(getVideosList(activeCategory, 8)) : dispatch(getVideosByCategory(activeCategory, 8));
+    dispatch(getVideosList(activeCategory, 8))
   }
 
   return (
     <div>
       <CategoriesBar />
-      <div key={activeCategory}>
+      <div key={activeCategory.title}>
         <InfiniteScroll
           dataLength={videos.length}
           hasMore={true}

@@ -11,7 +11,7 @@ export const getVideosList = (keyword, maxresult) => async (dispatch, getState) 
                 part: "snippet,contentDetails,statistics",
                 chart: 'mostPopular',
                 regionCode: 'IN',
-                videoCategoryId: '2',
+                videoCategoryId: keyword.id,
                 maxResults: maxresult,
                 pageToken: getState().homeVideos.nextPageToken,
             }
@@ -42,7 +42,7 @@ export const getVideosList = (keyword, maxresult) => async (dispatch, getState) 
                 videos: res.data.items,
                 nextPageToken: res.data.nextPageToken,
                 pageInfo: res.data.pageInfo,
-                category: keyword,
+                category: keyword.title,
                 etag: res.data.etag,
                 moreDetails: moreDetailsArr,
                 channelDetails: channelDetailsArr

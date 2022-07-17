@@ -1,50 +1,42 @@
 import React from 'react'
 import { useState } from 'react'
 import './_categories_bar.scss'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectCategory } from '../../Redux/Actions/category.action'
-
-const keywords = [
-  "All",
-  "Reacet js",
-  "Angular js",
-  "use of API",
-  "Redux",
-  "Bollywood",
-  "Algorithm Art",
-  "Bengali Songs",
-  "Coding",
-  "Cricket",
-  "football",
-  "Real Madrid",
-  "Gatsby",
-  "Poor coder",
-  "Shwetbh",
-]
+import { useEffect } from 'react'
+import { allCategoryAction } from '../../Redux/Actions/allCategory.action'
 
 const CategoriesBar = () => {
 
   const dispatch = useDispatch();
-  const [activeElement, setActiveElement] = useState('All');
-  const handleClick = (value) => {
+  let {activeCategory} = useSelector(state => state.catgoryState);
+  const [activeElement, setActiveElement] = useState(activeCategory.title);
+  const handleClick = (value, id) => {
     setActiveElement(value);
-    dispatch(selectCategory(value));
-    window.scrollTo({top: 0, ScrollBehavior: 'auto'})
+    dispatch(selectCategory(value, id));
+    window.scrollTo({ top: 0, ScrollBehavior: 'auto' })
   }
+
+  let allCategory = useSelector(state => state.allCategory);
+  useEffect(() => {
+    !allCategory.loaded && dispatch(allCategoryAction());
+  }, []);
 
   return (<>
     <div className='categoriesBar'>
       <div>
-        {keywords.map((element, index) => {
-          return (
-            <span
-              key={index}
-              onClick={() => { handleClick(element) }}
-              className={activeElement === element ? 'active' : ''}
-              title={element}
-            >{element} </span>
-          )
-        })}
+        {allCategory.loaded &&
+          allCategory.allCategory.map((element, index) => {
+            return (
+              <span
+                key={index}
+                onClick={() => { handleClick(element.title, element.id) }}
+                className={activeElement === element.title ? 'active' : ''}
+                title={element.title}
+              >{element.title} </span>
+            )
+          })
+        }
       </div>
     </div>
     <div className="category-manage"></div>
