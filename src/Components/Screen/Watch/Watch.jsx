@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Watch.scss'
 import { useSearchParams } from 'react-router-dom'
 
@@ -18,7 +18,7 @@ const Watch = () => {
             width='100%'
             id="youtube-player-screen"
             className='iframe'
-            style={{aspectRatio: '1280/720'}}
+            style={{ aspectRatio: '1280/720' }}
           ></iframe>
         </div>
       </div>

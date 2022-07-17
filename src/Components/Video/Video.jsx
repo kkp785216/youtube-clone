@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './_video.scss'
 import moment from 'moment'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Video = ({ videos, moreDetails, channelDetails }) => {
 
@@ -35,8 +35,8 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
   }, [moreDetails]);
 
   // fetch channel icons
-  const [channel, setChannel] = useState({channelImg: '', id: ''});
-  useEffect(() => {
+  const [channel, setChannel] = useState({ channelImg: '', id: '' });
+  useEffect((channel) => {
     channelDetails.then((res) => {
       setChannel({
         ...channel,
@@ -46,13 +46,12 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
     });
   }, [channelDetails]);
 
-
   return (
-    <Link to={`/watch?v=${videos ? videos.id.videoId : ''}`} className="video">
-      <div className="video__top">
+    <div className="video">
+      <Link to={`/watch?v=${videos ? videos.id.videoId === undefined ? videos.id : videos.id.videoId : ''}`} className="video__top d-block">
         <img src={videos.snippet.thumbnails.high.url} width="100%" alt="" />
         <span>{videoDetails && duration(videoDetails.contentDetails.duration)}</span>
-      </div>
+      </Link>
 
       <div className="video__details">
         <Link to={`/c/${channel.id}`} className="video__channel">
@@ -60,18 +59,19 @@ const Video = ({ videos, moreDetails, channelDetails }) => {
         </Link>
 
         <div className="video__title">
-          <h3>{videos.snippet.title}</h3>
+          <h3><Link to={`/watch?v=${videos ? videos.id.videoId === undefined ? videos.id : videos.id.videoId : ''}`}>{videos.snippet.title}</Link></h3>
           <div className='video__title__info'>
-            <span><Link className='channel__title' to={`/c/${channel.id}`}>{videos.snippet.channelTitle}</Link></span>
-            <span>{count(videoDetails && videoDetails.statistics.viewCount) + " views"}</span>
-            <span> • </span>
-            <span>{moment(videos.snippet.publishedAt).fromNow()}</span>
+            <span><Link to={`/c/${channel.id}`} className='channel__title'>{videos.snippet.channelTitle}</Link></span>
+            <Link to={`/watch?v=${videos ? videos.id.videoId === undefined ? videos.id : videos.id.videoId : ''}`}>
+              <span>{count(videoDetails && videoDetails.statistics.viewCount) + " views"}</span>
+              <span> • </span>
+              <span>{moment(videos.snippet.publishedAt).fromNow()}</span>
+            </Link>
           </div>
         </div>
       </div>
-
-    </Link>
+    </div>
   )
 }
 
-export default Video
+export default Video;

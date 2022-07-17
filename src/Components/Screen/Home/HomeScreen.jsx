@@ -4,7 +4,7 @@ import { Col } from 'react-bootstrap'
 import CategoriesBar from '../../CategoriesBar/CategoriesBar'
 import Video from '../../Video/Video'
 import { useDispatch, useSelector } from 'react-redux'
-import { getVideosByCategory } from '../../../Redux/Actions/video.action'
+import { getVideosByCategory, getVideosList } from '../../../Redux/Actions/video.action'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import SkeletonVideo from '../../Skeletons/SkeletonVideo'
 
@@ -15,12 +15,12 @@ const Home = () => {
 
   useEffect(() => {
     if (videos.length === 0 || videoCategory !== activeCategory) {
-      dispatch(getVideosByCategory(activeCategory, 20));
+      activeCategory === 'All' ? dispatch(getVideosList(activeCategory, 20)) : dispatch(getVideosByCategory(activeCategory, 20));
     }
   }, [dispatch, activeCategory, videoCategory, videos.length]);
 
   const fetchData = () => {
-    dispatch(getVideosByCategory(activeCategory, 8));
+    activeCategory === 'All' ? dispatch(getVideosList(activeCategory, 8)) : dispatch(getVideosByCategory(activeCategory, 8));
   }
 
   return (
@@ -34,7 +34,6 @@ const Home = () => {
           loader={<>
             {[...new Array(videos.length >= 20 ? 8 : 20)].map((element, index) => (
               <Col key={index}>
-              {console.log(videos.length)}
                 <SkeletonVideo />
               </Col>
             ))}

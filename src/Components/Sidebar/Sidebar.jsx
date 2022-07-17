@@ -10,7 +10,8 @@ import { logout } from '../../Redux/Actions/auth.action'
 import { selectApi } from '../../Redux/Actions/api.action'
 import { apiKeys } from '../../Database/Api'
 
-const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
+const Sidebar = (props) => {
+  const { sidebar, handleSidebar, handleClose } = props;
 
   const dispatch = useDispatch()
   const handleLogout = () => {
@@ -38,13 +39,13 @@ const Sidebar = ({ sidebar, handleSidebar, handleClose }) => {
       {
         [1, 2].map((element, index) => {
           return (
-            <nav className={`sidebar${index === 1 ? ' float-nav' : ' small'}${sidebar ? ' open' : ''}`} key={index}>
+            <nav className={`sidebar${index === 1 ? ' float-nav' : ' small'}${props.navClass ? ' '+props.navClass : ''}${sidebar ? ' open' : ''}`} key={index}>
 
               <div className='header_left'>
                 <div className='round-animt d-inline' onClick={() => { handleSidebar() }}>
                   <AiOutlineMenu className='header_menu' size={40} />
                 </div>
-                <Link className='logo' to="/"><img src={header_logo} alt="YouTube" className="header_logo" width="102px" title="YouTube Home" /></Link>
+                <Link to="/" className='logo'><img src={header_logo} alt="YouTube" className="header_logo" width="102px" title="YouTube Home" /></Link>
               </div>
 
               <Link to="/" onClick={() => { handleClose(window.innerWidth) }} title="Home">

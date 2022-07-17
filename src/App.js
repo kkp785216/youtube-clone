@@ -8,24 +8,28 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Watch from './Components/Screen/Watch/Watch';
 
 
-const Layout = ({ children }) => {
+const Layout = ({children, navClass, appClass}) => {
   const [sidebar, toggleSidebar] = useState(false);
   const handleSidebar = () => toggleSidebar(value => !value)
   const handleClose = (width) => { width < 1224 && toggleSidebar(false) }
 
   // Sidebar open on startup if large screen
   useEffect(() => {
-    window.innerWidth >= 1224 && toggleSidebar(true)
-  }, []);
+      navClass === 'watch-nav' ?
+      window.innerWidth >= 1224 && toggleSidebar(false) : 
+      window.innerWidth >= 1224 && toggleSidebar(true);
+  }, [navClass]);
   window.onresize = () => {
-    window.innerWidth >= 1224 && toggleSidebar(true)
+    navClass === 'watch-nav' ?
+    window.innerWidth >= 1224 && toggleSidebar(false) : 
+    window.innerWidth >= 1224 && toggleSidebar(true);
     window.innerWidth < 1224 && toggleSidebar(false)
   }
   return (<>
     <Header handleSidebar={handleSidebar} />
     <div className="app_container">
-      <Sidebar sidebar={sidebar} handleSidebar={handleSidebar} handleClose={handleClose} />
-      <div className={`app_main${sidebar ? ' open' : ''}`}>
+      <Sidebar sidebar={sidebar} navClass={navClass} handleSidebar={handleSidebar} handleClose={handleClose} />
+      <div className={`app_main${sidebar ? ' open' : ''}${appClass ? ' '+appClass : ''}`}>
         {children}
       </div>
     </div>
@@ -51,7 +55,7 @@ function App() {
       } />
 
       <Route exact path='/watch' element={
-        <Layout>
+        <Layout navClass="watch-nav" appClass='watch-app'>
           <Watch />
         </Layout>
       } />
