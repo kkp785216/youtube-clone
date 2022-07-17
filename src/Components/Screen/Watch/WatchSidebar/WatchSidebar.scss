@@ -1,0 +1,17 @@
+.video.watch-video{
+    display: flex;
+
+    &> *:first-child{
+        width: 40%;
+        flex: 0 0 auto;
+        padding-bottom: 22.5%;
+    }
+    &> *:last-child{
+        width: 60%;
+        flex: 0 0 auto;
+    }
+
+    .video__channel{
+        display: none;
+    }
+}
