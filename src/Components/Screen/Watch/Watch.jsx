@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Watch.scss'
 import { useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getVideosByCategory, getVideosList } from '../../../Redux/Actions/video.action'
+import { getVideosList } from '../../../Redux/Actions/video.action'
 import WatchSidebar from './WatchSidebar/WatchSidebar'
 import request from '../../../Database/Api'
 
@@ -42,8 +42,8 @@ const Watch = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if (videos.length === 0 || videoCategory !== activeCategory) {
-      activeCategory === 'All' ? dispatch(getVideosList(activeCategory, 20)) : dispatch(getVideosByCategory(activeCategory, 20));
+    if (videos.length === 0) {
+      dispatch(getVideosList(activeCategory, 20));
     }
   }, [dispatch, activeCategory, videoCategory, videos.length]);
 

@@ -17,10 +17,14 @@ const CategoriesBar = () => {
     window.scrollTo({ top: 0, ScrollBehavior: 'auto' })
   }
 
+  useEffect(()=>{
+    setActiveElement(activeCategory.title);
+  }, [activeCategory.title]);
+
   let allCategory = useSelector(state => state.allCategory);
   useEffect(() => {
     !allCategory.loaded && dispatch(allCategoryAction());
-  }, []);
+  }, [dispatch, allCategory]);
 
   return (<>
     <div className='categoriesBar'>

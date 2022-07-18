@@ -13,7 +13,6 @@ export const allCategoryAction = () => async (dispatch) => {
             }
         });
         let music = res.data.items.find(a=>a.snippet.title === 'Music');
-        console.log(music)
         res.data.items.unshift({id: music.id ? music.id : 10, snippet:{title: "All"}});
 
         dispatch({

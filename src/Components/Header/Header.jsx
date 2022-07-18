@@ -31,7 +31,7 @@ const Header = (props) => {
             </div>
             <Link to="/"><img src={header_logo} alt="YouTube" className="header_logo" width="102px" title="YouTube Home"/></Link>
           </div>
-          <form className='header_middle' onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className='header_middle'>
             <div className='search-container'>
               <div className="input_back round"><BiArrowBack size={23} /></div>
               <div className='search-box'>
