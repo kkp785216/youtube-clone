@@ -4,6 +4,19 @@
 
 .app_main.watch-app {
     width: 100% !important;
+    overflow: visible;
+
+    .category-manage{
+        display: none;
+    }
+
+    .row{
+        margin: 0;
+
+        &> *.col{
+            height: fit-content;
+        }
+    }
 }
 
 .watch-screen-player {
@@ -18,5 +31,31 @@
         height: 100%;
         right: 0;
         bottom: 0;
+    }
+}
+
+.categoriesBar.watch-category-bar{
+    position: static;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    margin-bottom: 7px;
+}
+
+.watch-screen-content{
+    &> h3{
+        font-size: 20px;
+        margin: 0;
+        padding-top: 13px;
+        padding-bottom: 8px;
+    }
+
+    &> .watch-duration{
+        font-weight: 600;
+        font-size: 14.3px;
+    }
+
+    &> .watch-description{
+        font-size: 14.3px;
     }
 }

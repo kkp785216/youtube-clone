@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getVideosList } from '../../../Redux/Actions/video.action'
 import WatchSidebar from './WatchSidebar/WatchSidebar'
 import request from '../../../Database/Api'
+import CategoriesBar from '../../CategoriesBar/CategoriesBar'
+import StickyBox from "react-sticky-box";
 
 const Watch = () => {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -36,7 +38,6 @@ const Watch = () => {
         let channel = cdata.data.items[0];
         videoDetails.channel = channel;
         setCurrentVideo(videoDetails);
-        console.log(videoDetails)
       })
     });
   }, [searchParams]);
@@ -49,19 +50,19 @@ const Watch = () => {
 
   const publishedAt = (input) => {
     let date = new Date(input);
-    let a = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][date.getMonth()] + ' ' + date.getDay() + ' ' + date.getFullYear()
+    let a = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][date.getMonth()] + ' ' + date.getDay() + ', ' + date.getFullYear()
     return a;
   }
 
   const setDescription = (input) => {
-    try{
-      document.querySelector('.description').innerText = input;
-    }catch{}
+    let span = document.createElement('span');
+    span.innerText = input
+    return span.innerHTML;
   }
 
   return (
     <div className="row">
-      <div className="col-8">
+      <StickyBox offsetTop={60} offsetBottom={0} className="col col-8">
         <div className="watch-screen-player">
           <iframe
             onLoad={() => { setIframeLoad(true) }}
@@ -74,16 +75,19 @@ const Watch = () => {
             className='iframe'
           ></iframe>
         </div>
-        {currentVideo && iframeLoad && <>
+        {currentVideo && iframeLoad && <div className='watch-screen-content'>
           <h3>{currentVideo.video.snippet.title}</h3>
-          <span>{currentVideo.video.statistics.viewCount} views</span>
-          <span> • </span>
-          <span>{publishedAt(currentVideo.video.snippet.publishedAt)}</span>
-          <p className='description'>{setDescription(currentVideo.video.snippet.description)}</p>
-        </>}
+          <span className='watch-duration'>
+            <span>{currentVideo.video.statistics.viewCount} views</span>
+            <span> • </span>
+            <span>{publishedAt(currentVideo.video.snippet.publishedAt)} </span>
+          </span>
+          <span className='watch-description' dangerouslySetInnerHTML={{__html: setDescription(currentVideo.video.snippet.description)}}></span>
+        </div>}
+      </StickyBox>
 
-      </div>
-      <div className="col-4">
+      <StickyBox offsetTop={60} offsetBottom={0} className='col col-4'>
+        <CategoriesBar className='watch-category-bar' />
         {iframeLoad && iframeLoad &&
           videos.map((videos, index) => (
             <div className='col' key={index}>
@@ -91,7 +95,7 @@ const Watch = () => {
             </div>
           ))
         }
-      </div>
+      </StickyBox>
     </div>
   )
 }

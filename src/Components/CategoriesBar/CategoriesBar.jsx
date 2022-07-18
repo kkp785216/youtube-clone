@@ -6,7 +6,7 @@ import { selectCategory } from '../../Redux/Actions/category.action'
 import { useEffect } from 'react'
 import { allCategoryAction } from '../../Redux/Actions/allCategory.action'
 
-const CategoriesBar = () => {
+const CategoriesBar = (props) => {
 
   const dispatch = useDispatch();
   let {activeCategory} = useSelector(state => state.catgoryState);
@@ -27,7 +27,7 @@ const CategoriesBar = () => {
   }, [dispatch, allCategory]);
 
   return (<>
-    <div className='categoriesBar'>
+    <div className={`categoriesBar${props.className ? ' '+props.className:''}`}>
       <div>
         {allCategory.loaded &&
           allCategory.allCategory.map((element, index) => {
