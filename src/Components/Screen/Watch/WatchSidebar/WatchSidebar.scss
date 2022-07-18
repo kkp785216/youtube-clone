@@ -1,18 +1,20 @@
-.video.watch-video{
+.video.watch-video {
     display: flex;
     margin-bottom: 11px;
 
-    &> *:first-child{
-        width: 40%;
+    &>*:first-child {
+        width: 170px;
         flex: 0 0 auto;
-        padding-bottom: 22.5%;
+        height: 95.625px;
+        padding-bottom: 0;
     }
-    &> *:last-child{
-        width: 60%;
+
+    &>*:last-child {
+        width: calc(100% - 170px);
         flex: 0 0 auto;
     }
 
-    .video__channel{
+    .video__channel {
         display: none;
     }
 }
