@@ -21,10 +21,10 @@ const CategoriesBar = (props) => {
     setActiveElement(activeCategory.title);
   }, [activeCategory.title]);
 
-  let allCategory = useSelector(state => state.allCategory);
+  const allCategory = useSelector(state => state.allCategory);
   useEffect(() => {
-    !allCategory.loaded && dispatch(allCategoryAction());
-  }, [dispatch, allCategory]);
+    !allCategory.loaded && allCategory.allCategory.length === 0 &&  dispatch(allCategoryAction());
+  }, [dispatch, allCategory.allCategory.length, allCategory.loaded]);
 
   return (<>
     <div className={`categoriesBar${props.className ? ' '+props.className:''}`}>

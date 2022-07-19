@@ -1,0 +1,119 @@
+.watch-screen-content {
+    &>h3 {
+        font-size: 20px;
+        margin: 0;
+        padding-top: 13px;
+        padding-bottom: 8px;
+    }
+
+    &>.watch-duration {
+        font-weight: 600;
+        font-size: 14.3px;
+    }
+
+    & .watch-description {
+        font-size: 14.3px;
+    }
+
+    & .watch-description.close {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    & .watch-description-more {
+        font-size: 14.3px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    & .watch-description-more.close::before {
+        content: "...more"
+    }
+
+    & .watch-description-more.open::before {
+        content: "...show less"
+    }
+}
+
+.watch-tools {
+    padding-top: 7px;
+    display: flex;
+
+    &>span {
+        cursor: pointer;
+        margin-right: 23px;
+        font-weight: 500;
+        font-size: 14.5px;
+        display: flex;
+        align-items: center;
+
+        svg {
+            width: 19px;
+            height: 100%;
+            margin-right: 7px;
+        }
+    }
+}
+
+.subscribe-comment {
+    padding: 17px 0;
+
+    &>.row {
+        a {
+            color: inherit;
+        }
+
+        &>.col.channel-info {
+            &>.row {
+                border: 1px solid #0000001a;
+                border-radius: 3px;
+                padding: 5px 0;
+            }
+
+            .row .col {
+                display: flex;
+                align-items: center;
+            }
+
+            .row .col:last-child {
+                justify-content: flex-end;
+                font-size: 16px;
+                text-transform: uppercase;
+            }
+
+            img {
+                margin-right: 17px;
+                border-radius: 100%;
+            }
+
+            span {
+                font-size: 12px;
+                color: #606060;
+            }
+
+            h3 {
+                font-size: 15px;
+                margin: 0;
+            }
+
+            button {
+                text-transform: uppercase;
+                color: white;
+                background-color: red;
+                padding: 6px 15px;
+                outline: none;
+                font-weight: 500;
+                font-size: 15px;
+                border: none;
+                border-radius: 3px;
+            }
+
+            button.subscribed {
+                color: #606060;
+                background-color: #ececec;
+            }
+        }
+    }
+}

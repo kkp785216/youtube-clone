@@ -1,7 +1,7 @@
 import { ALL_CATEGORY_SUCCESS, ALL_CATEGORY_FAIL, ALL_CATEGORY_REQUEST } from "../ActionType"
 
 export const allCategoryReducer = (state = {
-    allCategory: {}
+    allCategory: []
 }, action) => {
     const { type, payload } = action;
 

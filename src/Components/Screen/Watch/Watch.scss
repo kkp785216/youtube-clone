@@ -11,7 +11,7 @@
         display: none;
     }
 
-    .row {
+    &> .row {
         margin: 0;
 
         &>*.col>* {
@@ -28,7 +28,7 @@
     }
 
     @media(max-width: 1024px) {
-        .row {
+        &> .row {
             &>*.col {
                 width: 100%;
                 padding: 0;
@@ -67,6 +67,7 @@
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
+    overflow: hidden;
 
     iframe {
         position: absolute;
@@ -75,6 +76,16 @@
         height: 100%;
         right: 0;
         bottom: 0;
+    }
+
+    &::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: black;
     }
 }
 
@@ -87,50 +98,5 @@
 
     &>*:first-child {
         padding-top: 0;
-    }
-}
-
-.watch-screen-content {
-    &>h3 {
-        font-size: 20px;
-        margin: 0;
-        padding-top: 13px;
-        padding-bottom: 8px;
-    }
-
-    &>.watch-duration {
-        font-weight: 600;
-        font-size: 14.3px;
-    }
-
-    & .watch-description {
-        font-size: 14.3px;
-    }
-
-    & .watch-description.close {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    & .watch-description-more {
-        font-size: 14.3px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    & .watch-description-more.close::before {
-        content: "...more"
-    }
-
-    & .watch-description-more.open::before {
-        content: "...show less"
-    }
-}
-
-.watch-tools {
-    &>span {
-        cursor: pointer;
     }
 }

@@ -1,0 +1,45 @@
+.watch-comments {
+    .comment-card-wrapper {
+        display: flex;
+
+        img {
+            margin-right: 17px;
+        }
+
+        .comment-card-content {
+            h5 {
+                font-size: 16px;
+
+                a {
+                    color: inherit;
+                }
+
+                span {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #606060;
+                }
+            }
+
+            p {
+                margin-bottom: 0;
+                font-size: 14.5px;
+                margin-bottom: 2px;
+
+                &.close {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+
+
+            &>span {
+                color: #606060;
+                font-weight: 600;
+                font-size: 14.5px;
+            }
+        }
+    }
+}
