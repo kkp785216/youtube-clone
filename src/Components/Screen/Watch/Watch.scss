@@ -33,6 +33,10 @@
                 width: 100%;
                 padding: 0;
             }
+            &>*.col>*{
+                position: static !important;
+                top: 0 !important;
+            }
             &>*.col:last-child{
                 margin-top: 23px;
             }
@@ -41,19 +45,19 @@
 
     @media(max-width: 660px) {
         & {
-            padding: 24px 16px;
+            padding: 0 16px;
         }
     }
 
     @media(max-width: 512px) {
         & {
-            padding: 24px 11px;
+            padding: 0 11px;
             padding-top: 0;
 
             .watch-screen-player {
                 margin: 0 -11px;
                 width: calc(100% + 22px);
-                padding-bottom: calc(56.25% + 22px);
+                padding-bottom: calc(56.25% + 12.375px);
             }
         }
     }
