@@ -1,14 +1,24 @@
 .watch-comments {
     .comment-card-wrapper {
         display: flex;
+        margin-bottom: 27px;
+
+        &:last-child{
+            margin-bottom: 0;
+        }
 
         img {
             margin-right: 17px;
+            border-radius: 100%;
+            width: 40px;
+            height: 40px;
         }
 
         .comment-card-content {
+            font-size: 14px;
             h5 {
-                font-size: 16px;
+                font-size: 14px;
+                margin-bottom: 1px;
 
                 a {
                     color: inherit;
@@ -23,15 +33,23 @@
 
             p {
                 margin-bottom: 0;
-                font-size: 14.5px;
+                font-size: 14px;
                 margin-bottom: 2px;
 
                 &.close {
                     display: -webkit-box;
-                    -webkit-line-clamp: 4;
+                    -webkit-line-clamp: 3;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                 }
+            }
+
+            span.comment-read-more{
+                cursor: pointer;
+                font-size: 14px;
+            }
+            span.comment-read-more:hover{
+                text-decoration: underline;
             }
 
 

@@ -5,10 +5,11 @@ import { BiShare } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 import Comments from '../Comments/Comments'
 
-const WatchInfo = ({ currentVideo }) => {
+const WatchInfo = ({ currentVideo, currentVideoComments }) => {
     const [descriptionState, setDescriptionState] = useState('close');
-    let [liked, setLiked] = useState(false);
-    let [disliked, setDisliked] = useState(false);
+    const [liked, setLiked] = useState(false);
+    const [disliked, setDisliked] = useState(false);
+    const [subscribed, setSubscribed] = useState(false);
 
     const handleDescription = () => {
         descriptionState === 'close' ? setDescriptionState('open') : setDescriptionState('close');
@@ -51,6 +52,14 @@ const WatchInfo = ({ currentVideo }) => {
         }
     }
 
+    const lineCount = (input) => {
+        let span = document.createElement('span');
+        span.innerHTML = input
+        console.log(span.childNodes)
+        let count = Array.from(span.childNodes).filter(data=>data.nodeName === '#text').length
+        return count
+    }
+
     return (
         <>
             {currentVideo && <div className='watch-screen-content'>
@@ -61,7 +70,7 @@ const WatchInfo = ({ currentVideo }) => {
                     <span>{publishedAt(currentVideo.video.snippet.publishedAt)} </span>
                 </span>
                 <span className={`watch-description ${descriptionState}`} dangerouslySetInnerHTML={{ __html: setDescription(currentVideo.video.snippet.description) }}></span>
-                <span className={`watch-description-more ${descriptionState}`} onClick={handleDescription}></span>
+                {lineCount(setDescription(currentVideo.video.snippet.description)) >= 2 && <span className={`watch-description-more ${descriptionState}`} onClick={handleDescription}></span>}
                 <div className='watch-tools'>
                     <span onClick={handleLike}>{liked ? <MdThumbUp /> : <MdOutlineThumbUpOffAlt />} {count(liked ? parseInt(currentVideo.video.statistics.likeCount) + 1 : currentVideo.video.statistics.likeCount)}</span>
                     {console.log(currentVideo)}
@@ -80,13 +89,13 @@ const WatchInfo = ({ currentVideo }) => {
                                     </div>
                                 </div>
                                 <div className="col">
-                                    <button className=''>subscribe</button>
+                                    <button className={`${subscribed ? 'subscribed':''}`} onClick={()=>{setSubscribed(!subscribed)}}>{subscribed?'Subscribed':'Subscribe'}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <Comments currentVideo={currentVideo}/>
+                {currentVideoComments && <Comments currentVideo={currentVideo} currentVideoComments={currentVideoComments}/>}
             </div>}
         </>
     )

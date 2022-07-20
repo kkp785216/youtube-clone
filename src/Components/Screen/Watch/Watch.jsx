@@ -16,9 +16,10 @@ const Watch = () => {
   const { videos, loading, moreDetails, channelDetails, videoCategory } = useSelector(state => state.homeVideos);
   const { activeCategory } = useSelector(state => state.catgoryState);
   const [currentVideo, setCurrentVideo] = useState(null);
+  const [currentVideoComments, setCurrentVideoComments] = useState(null);
 
   useEffect(() => {
-    let videoDetails = { video: {}, channel: {} };
+    const videoDetails = { video: {}, channel: {} };
     const res = request("/videos", {
       params: {
         part: "snippet,contentDetails,statistics",
@@ -38,6 +39,16 @@ const Watch = () => {
         let channel = cdata.data.items[0];
         videoDetails.channel = channel;
         setCurrentVideo(videoDetails);
+
+        // fetch comments
+        const res = request("/commentThreads", {
+          params: {
+            part: "snippet,replies",
+            videoId: searchParams.get('v'),
+            maxResults: 10
+          }
+        });
+        setCurrentVideoComments(res);
       })
     });
   }, [searchParams]);
@@ -64,7 +75,7 @@ const Watch = () => {
             ></iframe>
             <div className="iframe-overlay"></div>
           </div>
-          <WatchInfo currentVideo={currentVideo} />
+          <WatchInfo currentVideo={currentVideo} currentVideoComments={currentVideoComments}/>
         </StickyBox>
       </div>
 
