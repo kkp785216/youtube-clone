@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Login from './Components/Screen/Login/Login'
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Watch from './Components/Screen/Watch/Watch';
+import Subscription from './Components/Screen/Subscription/Subscription';
 
 
 const Layout = ({children, navClass, appClass}) => {
@@ -61,8 +62,8 @@ function App() {
       } />
 
       <Route exact path='/feed/subscription' element={
-        <Layout>
-          <h1>Subscription</h1>
+        <Layout appClass='subscription-app'>
+          <Subscription/>
         </Layout>
       } />
 
