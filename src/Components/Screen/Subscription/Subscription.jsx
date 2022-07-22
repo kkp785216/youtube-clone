@@ -7,13 +7,11 @@ import { useSelector } from 'react-redux'
 import RequestLogin from '../../RequestLogin/RequestLogin'
 import { Link } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 import SkeltonSubscription from '../../Skeletons/SkeltonSubscription'
 
 const Subscription = () => {
   const [subsData, setSubsData] = useState(null);
-  const { accessToken, user } = useSelector(state => state.auth)
+  const { accessToken } = useSelector(state => state.auth)
   useEffect(() => {
     try {
       const res = request('subscriptions', {
@@ -23,7 +21,7 @@ const Subscription = () => {
         params: {
           part: 'snippet,contentDetails',
           mine: true,
-          maxResults: 15
+          maxResults: 10
         }
       })
       res.then(data => {
@@ -36,7 +34,7 @@ const Subscription = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [accessToken]);
 
   const moreSubscription = () => {
     const res = request('subscriptions', {
@@ -46,7 +44,7 @@ const Subscription = () => {
       params: {
         part: 'snippet,contentDetails',
         mine: true,
-        maxResults: 10,
+        maxResults: 5,
         pageToken: subsData.pageToken
       }
     });
@@ -68,12 +66,16 @@ const Subscription = () => {
           dataLength={subsData.data.length}
           next={moreSubscription}
           hasMore={subsData.data.length < parseInt(subsData.pageInfo.totalResults)}
-          loader={
+          loader={<>
+            {[...new Array(5)].map((element, index) => (
+              <SkeltonSubscription key={index} />
+            ))}
             <div className="d-flex w-100 justify-content-center overflow-hidden">
               <div className="spinner-border" role="status" style={{ color: '#525252' }}>
                 <span className="visually-hidden">Loading...</span>
               </div>
-            </div>}
+            </div>
+          </>}
           scrollableTarget="scrollableDiv"
         >
           {subsData.data.map((element, index) => (
@@ -86,13 +88,11 @@ const Subscription = () => {
               </div>
             </div>
           ))}
-        </InfiniteScroll> :
-        <>
-        {/* {[...new Array(15)].map((element, index)=>(
-          <SkeltonSubscription key={index}/>
-        ))} */}
-        </>
-      }
+        </InfiniteScroll> : <>
+          {[...new Array(10)].map((element, index) => (
+            <SkeltonSubscription key={index} />
+          ))}
+        </>}
     </>}
 
     {!accessToken && <RequestLogin />}

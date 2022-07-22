@@ -1,9 +1,13 @@
 .subscription-wrapper {
     display: flex;
     margin-bottom: 23px;
-    padding: 23px 0;
+    padding-bottom: 23px;
     position: relative;
+    padding-top: 0;
 
+    &:first-child {
+        padding-top: 23px;
+    }
     &:last-child {
         margin-bottom: 0;
     }
