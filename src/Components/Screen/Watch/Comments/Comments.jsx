@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import moment from 'moment'
-import youtube from './youtube-logo-icone.png'
 
 const Comments = ({ currentVideo, currentVideoComments }) => {
     const [currentComments, setCurrentComment] = useState(null);
@@ -12,14 +11,12 @@ const Comments = ({ currentVideo, currentVideoComments }) => {
     useEffect(() => {
         currentVideoComments.then(data => {
             setCurrentComment(data.data.items);
-            console.log(data.data.items)
         });
     }, [currentVideoComments]);
 
     const lineCount = (input) => {
         let span = document.createElement('span');
         span.innerHTML = input
-        console.log(span.childNodes)
         let count = Array.from(span.childNodes).filter(data=>data.nodeName === '#text').length
         return count
     }

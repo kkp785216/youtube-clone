@@ -55,7 +55,6 @@ const WatchInfo = ({ currentVideo, currentVideoComments }) => {
     const lineCount = (input) => {
         let span = document.createElement('span');
         span.innerHTML = input
-        console.log(span.childNodes)
         let count = Array.from(span.childNodes).filter(data=>data.nodeName === '#text').length
         return count
     }
@@ -73,7 +72,7 @@ const WatchInfo = ({ currentVideo, currentVideoComments }) => {
                 {lineCount(setDescription(currentVideo.video.snippet.description)) >= 2 && <span className={`watch-description-more ${descriptionState}`} onClick={handleDescription}></span>}
                 <div className='watch-tools'>
                     <span onClick={handleLike}>{liked ? <MdThumbUp /> : <MdOutlineThumbUpOffAlt />} {count(liked ? parseInt(currentVideo.video.statistics.likeCount) + 1 : currentVideo.video.statistics.likeCount)}</span>
-                    {console.log(currentVideo)}
+                    {/* {console.log(currentVideo)} */}
                     <span onClick={handleDislike}>{disliked ? <MdThumbDown /> : <MdOutlineThumbDownAlt />} Dislike</span>
                     <span>{<BiShare style={{ transform: 'scaleX(-1)' }} />} Share</span>
                 </div>

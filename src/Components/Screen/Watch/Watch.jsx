@@ -54,7 +54,7 @@ const Watch = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    if (videos.length === 0) {
+    if (videos.length === 0 || videoCategory !== activeCategory.title) {
       dispatch(getVideosList(activeCategory, 20));
     }
   }, [dispatch, activeCategory, videoCategory, videos.length]);
