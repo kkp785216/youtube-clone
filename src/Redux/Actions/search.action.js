@@ -7,7 +7,6 @@ export const getVideosBySearch = (keyword, maxresult) => async (dispatch, getSta
             type: SEARCH_VIDEOS_REQUEST
         });
 
-        // const videoIdRes = await fetch('https://youtube-clone-backend.vercel.app', {
         const videoIdRes = await searchreq('', {
             method: 'GET',
             params: {
@@ -75,12 +74,11 @@ export const getVideosBySearchNext = (keyword, nextPage, maxresult) => async (di
         dispatch({
             type: SEARCH_VIDEOS_REQUEST
         });
-        console.log(nextPage)
-        // const videoIdRes = await fetch('https://youtube-clone-backend.vercel.app', {
+
         const videoIdRes = await searchreq('/next', {
             method: 'GET',
             params: {
-                // nextPage: encodeURIComponent(JSON.stringify(nextPage)),
+                // nextPage: encodeURI(JSON.stringify(nextPage)),
                 nextPage: nextPage,
                 maxResult: maxresult
             }
