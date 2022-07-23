@@ -4,15 +4,17 @@ const app = express()
 const port = 3000 || process.env.port
 
 app.get('/', (req, res) => {
-    let response = youtubesearchapi.GetListByKeyword(req.query.q, false, 20)
+    let maxResult = req.query.maxRexult !== undefined ? req.query.maxRexult : 20;
+    let response = youtubesearchapi.GetListByKeyword(req.query.q, false, maxResult)
     response.then(data => {
         res.send(data);
     })
 })
 
 app.get('/next', (req, res) => {
+    let maxResult = req.query.maxRexult !== undefined ? req.query.maxRexult : 20;
     let objs = JSON.parse(req.query.nextPage)
-    let response = youtubesearchapi.NextPage(objs, false, 20)
+    let response = youtubesearchapi.NextPage(objs, false, maxResult)
     response.then(data => {
         res.send(data);
     })
