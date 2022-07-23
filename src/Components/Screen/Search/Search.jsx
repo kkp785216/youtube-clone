@@ -1,25 +1,47 @@
-import React, {useEffect} from 'react'
-import {useSearchParams, Link} from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import './Search.scss'
+import { useSearchParams, Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { getVideosBySearch, getVideosBySearchNext } from '../../../Redux/Actions/search.action';
+import SingleSearch from './SingleSearch';
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 const Search = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const {videos, nextPage} = useSelector(state=>state.searchVideos);
-    useEffect(()=>{
-        console.log(searchParams.get('q'));
-    },[searchParams]);
-  return (<>
-    {videos.map((video, index)=>(
-        <div className='search-card-wrapper' key={index}>
-            <div className="search-card">
-                <div className="search-card-thumbnail" title={video.snippet.title}><Link to={`/watch?v=${video ? video.id.videoId === undefined ? video.id : video.id.videoId : ''}`}><img src={video.snippet.thumbnails.high.url} alt="" /></Link></div>
-                <div className="search-card-content"  title={video.snippet.title}>
-                    <h2><Link to={`/watch?v=${video ? video.id.videoId === undefined ? video.id : video.id.videoId : ''}`}>{video.snippet.title}</Link></h2>
+    const { videos, nextPage, videoCategory, moreDetails, channelDetails } = useSelector(state => state.searchVideos);
+
+    // load search result for the first time
+    const dispatch = useDispatch();
+    let query = searchParams.get('q');
+    useEffect(() => {
+        if (videos.length === 0 || videoCategory !== query) {
+            console.log(query);
+            dispatch(getVideosBySearch(query, 20));
+        }
+    }, [query]);
+
+    const fetchData = () => {
+        dispatch(getVideosBySearchNext(query, nextPage, 8));
+    }
+
+    return (<>
+        <InfiniteScroll className='search-card-wrapper'
+            dataLength={videos.length}
+            hasMore={true}
+            next={fetchData}
+            loader={<>
+                <div className="d-flex w-100 justify-content-center">
+                    <div className="spinner-border" role="status" style={{ color: '#525252' }}>
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
                 </div>
-            </div>
-        </div>
-    ))}
-  </>)
+            </>}
+        >
+            {videos.map((video, index) => (
+                <SingleSearch key={index} video={video} moreDetails={moreDetails[index]} channelDetails={channelDetails[index]} />
+            ))}
+        </InfiniteScroll>
+    </>)
 }
 
 export default Search

@@ -1,0 +1,68 @@
+.search-card-wrapper {
+    padding: 24px;
+}
+
+.search-card {
+    display: flex;
+
+    margin-bottom: 16px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .search-card-thumbnail {
+        margin-right: 16px;
+        width: 350px;
+        flex: 0 0 auto;
+        position: relative;
+
+        a {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-bottom: 56.25%;
+        }
+
+        img {
+            width: 100%;
+            height: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        span{
+            position: absolute;
+            right: 2px;
+            bottom: 3px;
+            color: white;
+            background-color: black;
+            padding: 0px 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            line-height: normal;
+        }
+    }
+
+    a {
+        color: inherit;
+    }
+
+    .search-card-content {
+        font-size: 13px;
+        h2 {
+            font-size: 17px;
+        }
+        p {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    }
+}

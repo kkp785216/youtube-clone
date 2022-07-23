@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import RequestLogin from '../../RequestLogin/RequestLogin'
 import { Link } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import SkeltonSubscription from '../../Skeletons/SkeltonSubscription'
+import SkeltonSubscription from '../../Skeletons/SkeltonSubsctiption/SkeltonSubscription'
 
 const Subscription = () => {
   const [subsData, setSubsData] = useState(null);

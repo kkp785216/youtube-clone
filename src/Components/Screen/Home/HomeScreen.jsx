@@ -6,23 +6,21 @@ import Video from '../../Video/Video'
 import { useDispatch, useSelector } from 'react-redux'
 import { getVideosList } from '../../../Redux/Actions/video.action'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import SkeletonVideo from '../../Skeletons/SkeletonVideo'
-import { getVideosBySearch } from '../../../Redux/Actions/search.action'
+import SkeletonVideo from '../../Skeletons/SkeltonVidoe/SkeletonVideo'
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { videos, loading, moreDetails, channelDetails, videoCategory } = useSelector(state => state.homeVideos);
+  const { videos, moreDetails, channelDetails, videoCategory } = useSelector(state => state.homeVideos);
   const {activeCategory} = useSelector(state => state.catgoryState);
 
   useEffect(() => {
     if (videos.length === 0 || videoCategory !== activeCategory.title) {
-      dispatch(getVideosList(activeCategory, 20))
-      dispatch(getVideosBySearch(activeCategory, 20))
+      dispatch(getVideosList(activeCategory, 20));
     }
   }, [dispatch, activeCategory, videoCategory, videos.length]);
 
   const fetchData = () => {
-    dispatch(getVideosList(activeCategory, 8))
+    dispatch(getVideosList(activeCategory, 8));
   }
 
   return (
@@ -55,7 +53,7 @@ const Home = () => {
           {
             videos.map((videos, index) => (
               <Col key={index}>
-                <Video videos={videos} loading={loading} moreDetails={moreDetails[index]} channelDetails={channelDetails[index]} />
+                <Video videos={videos} moreDetails={moreDetails[index]} channelDetails={channelDetails[index]} />
               </Col>
             ))
           }
