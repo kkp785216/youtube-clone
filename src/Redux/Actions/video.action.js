@@ -1,4 +1,4 @@
-import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS, SEARCH_VIDEOS_REQUEST } from "../ActionType"
+import { HOME_VIDEOS_FAIL, HOME_VIDEOS_REQUEST, HOME_VIDEOS_SUCCESS } from "../ActionType"
 import request from "../../Database/Api"
 
 export const getVideosList = (keyword, maxresult) => async (dispatch, getState) => {

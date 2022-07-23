@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './Search.scss'
-import { useSearchParams, Link } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { getVideosBySearch, getVideosBySearchNext } from '../../../Redux/Actions/search.action';
 import SingleSearch from './SingleSearch';
@@ -15,10 +15,9 @@ const Search = () => {
     let query = searchParams.get('q');
     useEffect(() => {
         if (videos.length === 0 || videoCategory !== query) {
-            console.log(query);
             dispatch(getVideosBySearch(query, 20));
         }
-    }, [query]);
+    }, [query, dispatch, videos.length, videoCategory]);
 
     const fetchData = () => {
         dispatch(getVideosBySearchNext(query, nextPage, 8));

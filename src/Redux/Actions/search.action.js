@@ -15,7 +15,6 @@ export const getVideosBySearch = (keyword, maxresult) => async (dispatch, getSta
             }
         });
 
-        console.log(videoIdRes.data)
         let arr = videoIdRes.data.items.map(a=>a.id).toString();
         
         const res = await request("/videos", {
@@ -84,7 +83,6 @@ export const getVideosBySearchNext = (keyword, nextPage, maxresult) => async (di
             }
         });
 
-        console.log(videoIdRes.data)
         let arr = videoIdRes.data.items.map(a=>a.id).toString();
         
         const res = await request("/videos", {
