@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getVideosList } from '../../../Redux/Actions/video.action'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import SkeletonVideo from '../../Skeletons/SkeletonVideo'
+import { getVideosBySearch } from '../../../Redux/Actions/search.action'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Home = () => {
   useEffect(() => {
     if (videos.length === 0 || videoCategory !== activeCategory.title) {
       dispatch(getVideosList(activeCategory, 20))
+      dispatch(getVideosBySearch(activeCategory, 20))
     }
   }, [dispatch, activeCategory, videoCategory, videos.length]);
 

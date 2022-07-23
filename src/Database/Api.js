@@ -25,4 +25,10 @@ const request = axios.create({
     }
 });
 
+export const searchreq = axios.create({
+    baseURL: "http://localhost:5500",
+    headers: {},
+    params: {}
+});
+
 export default request;

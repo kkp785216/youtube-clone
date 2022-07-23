@@ -7,6 +7,7 @@ import Login from './Components/Screen/Login/Login'
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Watch from './Components/Screen/Watch/Watch';
 import Subscription from './Components/Screen/Subscription/Subscription';
+import Search from './Components/Screen/Search/Search';
 
 
 const Layout = ({children, navClass, appClass}) => {
@@ -51,7 +52,7 @@ function App() {
 
       <Route exact path='/search' element={
         <Layout>
-          <Home />
+          <Search/>
         </Layout>
       } />
 
