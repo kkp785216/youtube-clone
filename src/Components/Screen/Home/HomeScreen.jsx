@@ -8,19 +8,29 @@ import { getVideosList } from '../../../Redux/Actions/video.action'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import SkeletonVideo from '../../Skeletons/SkeltonVidoe/SkeletonVideo'
 
-const Home = () => {
+const Home = ({progress, setProgress}) => {
   const dispatch = useDispatch();
-  const { videos, moreDetails, channelDetails, videoCategory } = useSelector(state => state.homeVideos);
-  const {activeCategory} = useSelector(state => state.catgoryState);
+  const { videos, moreDetails, channelDetails, videoCategory, loading, isFirst } = useSelector(state => state.homeVideos);
+  const { activeCategory } = useSelector(state => state.catgoryState);
 
   useEffect(() => {
     if (videos.length === 0 || videoCategory !== activeCategory.title) {
-      dispatch(getVideosList(activeCategory, 20));
+      dispatch(getVideosList(activeCategory, 20, true));
+      setProgress(10);
     }
-  }, [dispatch, activeCategory, videoCategory, videos.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, activeCategory, videoCategory, videos.length, loading]);
+
+  useEffect(()=>{
+    if(!loading && isFirst && progress === 10){
+        setProgress(100);
+    }
+    console.log(loading, isFirst)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, isFirst]);
 
   const fetchData = () => {
-    dispatch(getVideosList(activeCategory, 8));
+    dispatch(getVideosList(activeCategory, 8, false));
   }
 
   return (

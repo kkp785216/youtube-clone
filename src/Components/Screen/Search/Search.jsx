@@ -6,21 +6,35 @@ import { getVideosBySearch, getVideosBySearchNext } from '../../../Redux/Actions
 import SingleSearch from './SingleSearch';
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-const Search = () => {
+const Search = ({progress, setProgress}) => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { videos, nextPage, videoCategory, moreDetails, channelDetails } = useSelector(state => state.searchVideos);
+    const { videos, nextPage, videoCategory, moreDetails, channelDetails, loading, isFirst } = useSelector(state => state.searchVideos);
 
     // load search result for the first time
     const dispatch = useDispatch();
     let query = searchParams.get('q');
     useEffect(() => {
         if (videos.length === 0 || videoCategory !== query) {
-            dispatch(getVideosBySearch(query, 20));
+            dispatch(getVideosBySearch(query, 20, true));
         }
     }, [query, dispatch, videos.length, videoCategory]);
 
+    useEffect(()=>{
+        if (videoCategory !== query) {
+            setProgress(10);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[videoCategory, query]);
+
+    useEffect(()=>{
+        if(!loading && isFirst && progress === 10){
+            setProgress(100);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading, isFirst])
+
     const fetchData = () => {
-        dispatch(getVideosBySearchNext(query, nextPage, 8));
+        dispatch(getVideosBySearchNext(query, nextPage, 8, false));
     }
 
     return (<>

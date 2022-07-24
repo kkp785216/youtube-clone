@@ -1,7 +1,7 @@
 import { SEARCH_VIDEOS_FAIL, SEARCH_VIDEOS_REQUEST, SEARCH_VIDEOS_SUCCESS } from "../ActionType"
 import request, { searchreq } from "../../Database/Api"
 
-export const getVideosBySearch = (keyword, maxresult) => async (dispatch, getState) => {
+export const getVideosBySearch = (keyword, maxresult, isFirst) => async (dispatch, getState) => {
     try {
         dispatch({
             type: SEARCH_VIDEOS_REQUEST
@@ -54,7 +54,8 @@ export const getVideosBySearch = (keyword, maxresult) => async (dispatch, getSta
                 category: keyword,
                 etag: res.data.etag,
                 moreDetails: moreDetailsArr,
-                channelDetails: channelDetailsArr
+                channelDetails: channelDetailsArr,
+                isFirst: isFirst
             }
         })
 
@@ -68,7 +69,7 @@ export const getVideosBySearch = (keyword, maxresult) => async (dispatch, getSta
 }
 
 
-export const getVideosBySearchNext = (keyword, nextPage, maxresult) => async (dispatch, getState) => {
+export const getVideosBySearchNext = (keyword, nextPage, maxresult, isFirst) => async (dispatch, getState) => {
     try {
         dispatch({
             type: SEARCH_VIDEOS_REQUEST
@@ -77,7 +78,6 @@ export const getVideosBySearchNext = (keyword, nextPage, maxresult) => async (di
         const videoIdRes = await searchreq('/next', {
             method: 'GET',
             params: {
-                // nextPage: encodeURI(JSON.stringify(nextPage)),
                 nextPage: nextPage,
                 maxResult: maxresult
             }
@@ -122,7 +122,8 @@ export const getVideosBySearchNext = (keyword, nextPage, maxresult) => async (di
                 category: keyword,
                 etag: res.data.etag,
                 moreDetails: moreDetailsArr,
-                channelDetails: channelDetailsArr
+                channelDetails: channelDetailsArr,
+                isFirst: isFirst
             }
         })
 
