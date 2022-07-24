@@ -60,8 +60,8 @@ const SingleSearch = ({ video, moreDetails, channelDetails }) => {
                     <span> • </span>
                     <span>{moment(video.snippet.publishedAt).fromNow()}</span>
                 </Link>
-                <div className='d-flex align-items-center my-2'>
-                    <Link to={`/c/${channel.id}`} className='me-2'><img className='rounded-circle' src={channel.channelImg} width="27px" height="27px" alt="" /></Link>
+                <div className='d-flex align-items-center search-channel-wrapper my-2'>
+                    <Link to={`/c/${channel.id}`} className='me-2 search-channel'><img className='rounded-circle' src={channel.channelImg} width="27px" height="27px" alt="" /></Link>
                     <span><Link to={`/c/${channel.id}`} className='channel__title'>{video.snippet.channelTitle}</Link></span>
                 </div>
                 <p>{video.snippet.description}</p>

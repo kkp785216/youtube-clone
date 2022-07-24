@@ -29,7 +29,7 @@ const Search = () => {
             hasMore={true}
             next={fetchData}
             loader={<>
-                <div className="d-flex w-100 justify-content-center">
+                <div className="d-flex w-100 justify-content-center search-loader">
                     <div className="spinner-border" role="status" style={{ color: '#525252' }}>
                         <span className="visually-hidden">Loading...</span>
                     </div>
