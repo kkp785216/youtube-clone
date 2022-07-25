@@ -42,7 +42,7 @@ const Home = ({progress, setProgress}) => {
           hasMore={true}
           next={fetchData}
           loader={<>
-            {[...new Array(videos.length >= 20 ? 8 : 20)].map((element, index) => (
+            {[...new Array(isFirst ? 20 : 8)].map((element, index) => (
               <Col key={index}>
                 <SkeletonVideo />
               </Col>
