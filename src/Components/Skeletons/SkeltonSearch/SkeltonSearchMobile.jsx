@@ -7,7 +7,7 @@ const SkeltonSearchMobile = () => {
         <div className='skeleton-wrapper mb-4'>
             <SkeletonTheme baseColor='#e0e0e0' highlightColor='#ededed' >
                 <div className='position-relative overflow-hidden skeleton-div' style={{ paddingBottom: '56.25%' }}>
-                    <Skeleton width='100%' className='position-absolute' style={{ height: '-webkit-fill-available', borderRadius: '0' }} />
+                    <Skeleton width='100%' className='position-absolute h-100' style={{ borderRadius: '0'}} />
                 </div>
                 <div className="d-flex align-items-center mt-2 skeleton-div-second">
                     <div className='skeleton-div'>

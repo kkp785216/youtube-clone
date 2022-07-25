@@ -16,16 +16,15 @@ const Home = ({progress, setProgress}) => {
   useEffect(() => {
     if (videos.length === 0 || videoCategory !== activeCategory.title) {
       dispatch(getVideosList(activeCategory, 20, true));
-      setProgress(10);
+      setProgress(70);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, activeCategory, videoCategory, videos.length, loading]);
+  }, [dispatch, activeCategory]);
 
   useEffect(()=>{
-    if(!loading && isFirst && progress === 10){
+    if(!loading && isFirst && progress === 70){
         setProgress(100);
     }
-    console.log(loading, isFirst)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, isFirst]);
 
@@ -42,7 +41,7 @@ const Home = ({progress, setProgress}) => {
           hasMore={true}
           next={fetchData}
           loader={<>
-            {[...new Array(isFirst ? 20 : 8)].map((element, index) => (
+            {[...new Array(videos.length <= 0 ? 20 : 8)].map((element, index) => (
               <Col key={index}>
                 <SkeletonVideo />
               </Col>

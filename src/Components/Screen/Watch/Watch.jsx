@@ -8,7 +8,6 @@ import request from '../../../Database/Api'
 import CategoriesBar from '../../CategoriesBar/CategoriesBar'
 import StickyBox from "react-sticky-box";
 import WatchInfo from './WatchInfo/WatchInfo'
-// import LoadingBar from 'react-top-loading-bar'
 
 const Watch = ({ setProgress }) => {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -60,10 +59,11 @@ const Watch = ({ setProgress }) => {
     if (videos.length === 0 || videoCategory !== activeCategory.title) {
       dispatch(getVideosList(activeCategory, 20));
     }
-  }, [dispatch, activeCategory, videoCategory, videos.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, activeCategory]);
 
   useEffect(() => {
-    setProgress(10);
+    setProgress(70);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 

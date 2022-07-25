@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import './Search.scss'
 import { useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,12 +6,10 @@ import { getVideosBySearch, getVideosBySearchNext } from '../../../Redux/Actions
 import SingleSearch from './SingleSearch';
 import InfiniteScroll from 'react-infinite-scroll-component'
 import SkeltonSearch from '../../Skeletons/SkeltonSearch/SkeltonSearch';
-import SkeltonSearchMobile from '../../Skeletons/SkeltonSearch/SkeltonSearchMobile';
 
 const Search = ({ progress, setProgress }) => {
     const [searchParams, setSearchParams] = useSearchParams();
     const { videos, nextPage, videoCategory, moreDetails, channelDetails, loading, isFirst } = useSelector(state => state.searchVideos);
-    const [responsive, setResponsive] = useState(false)
 
     // load search result for the first time
     const dispatch = useDispatch();
@@ -20,17 +18,17 @@ const Search = ({ progress, setProgress }) => {
         if (videos.length === 0 || videoCategory !== query) {
             dispatch(getVideosBySearch(query, 20, true));
         }
-    }, [query, dispatch, videos.length, videoCategory]);
+    }, [query, videoCategory]);
 
     useEffect(() => {
         if (videoCategory !== query) {
-            setProgress(10);
+            setProgress(70);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [videoCategory, query]);
 
     useEffect(() => {
-        if (!loading && isFirst && progress === 10) {
+        if (!loading && isFirst && progress === 70) {
             setProgress(100);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,25 +38,15 @@ const Search = ({ progress, setProgress }) => {
         dispatch(getVideosBySearchNext(query, nextPage, 8, false));
     }
 
-    // Skelton for mobile device set
-    const handleResponsive = () => {
-        window.innerWidth > 512 ? setResponsive(false) : setResponsive(true);
-    }
-    window.onresize = handleResponsive;
-    useEffect(() => {
-        handleResponsive()
-        console.log('hii')
-    }, []);
-
     return (<>
         <InfiniteScroll className='search-card-wrapper'
             dataLength={videos.length}
             hasMore={true}
             next={fetchData}
             loader={<>
-                {[...new Array(isFirst ? 20 : 8)].map((element, index) => (
-                    <div className='col' key={index}>
-                        {responsive ? <SkeltonSearchMobile /> : <SkeltonSearch />}
+                {[...new Array(8)].map((element, index) => (
+                    <div className='w-100' key={index}>
+                        <SkeltonSearch/>
                     </div>
                 ))}
                 <div className="d-flex w-100 justify-content-center search-loader">
