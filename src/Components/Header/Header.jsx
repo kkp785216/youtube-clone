@@ -36,7 +36,7 @@ const Header = (props) => {
           </div>
           <form onSubmit={handleSubmit} className='header_middle'>
             <div className='search-container'>
-              <div className="input_back round"><BiArrowBack onClick={()=>{document.querySelector('.search-container').classList.toggle('on')}} size={23} /></div>
+              <div className="input_back round" onClick={()=>{document.querySelector('.search-container').classList.toggle('on')}}><BiArrowBack size={23} /></div>
               <div className='search-box'>
                 <input id='search' type="text" value={searchText} onChange={(e) => { setSearchText(e.target.value) }} onFocus={() => { document.querySelector('.search-box').classList.add('on') }} onBlur={() => { document.querySelector('.search-box').classList.remove('on') }} name='search' placeholder='Search' />
                 <span><AiOutlineSearch size={20} /></span>
