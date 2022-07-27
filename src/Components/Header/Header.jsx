@@ -46,7 +46,7 @@ const Header = (props) => {
             </div>
           </form>
           <div className="header_icons header_right">
-            <CgSearch className='s-toggle' onClick={()=>{document.querySelector('.search-container').classList.toggle('on')}} size={38} />
+            <CgSearch className='s-toggle' onClick={()=>{document.querySelector('.search-container').classList.add('on'); document.querySelector('#search').focus()}} size={38} />
             <MdNotifications size={40} />
             <MdApps size={40} />
             {user ? <img src={user.photoUrl} alt="avtar" width="50px" height="50px" title={user.name} /> : <FaRegUserCircle size={45} />}

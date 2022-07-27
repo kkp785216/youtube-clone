@@ -6,8 +6,9 @@ import { getVideosList } from '../../../Redux/Actions/video.action'
 import WatchSidebar from './WatchSidebar/WatchSidebar'
 import request from '../../../Database/Api'
 import CategoriesBar from '../../CategoriesBar/CategoriesBar'
-import StickyBox from "react-sticky-box";
 import WatchInfo from './WatchInfo/WatchInfo'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import SkeltonWatch from '../../Skeletons/SkeltonWatch/SkeltonWatch'
 
 const Watch = ({ setProgress }) => {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -62,6 +63,10 @@ const Watch = ({ setProgress }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, activeCategory]);
 
+  const fetchData = () => {
+    dispatch(getVideosList(activeCategory, 8, false));
+  }
+
   useEffect(() => {
     setProgress(70);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,29 +77,43 @@ const Watch = ({ setProgress }) => {
   }, []);
 
   return (
-    <div className="row">
+    <div className="row main-watch-screen">
       <div className="col col-8">
-        <StickyBox offsetTop={84} offsetBottom={24}>
-          <div className="watch-screen-player">
-            <iframe
-              src={`https://www.youtube.com/embed/${query}?autoplay=1&mute=0`}
-              title='Youtube Watch'
-              frameBorder="0"
-              allowFullScreen
-              width='100%'
-              id="youtube-player-screen"
-              className='iframe'
-              onLoad={() => { setProgress(100); window.scroll({ top: 0 }) }}
-            ></iframe>
-            <div className="iframe-overlay"></div>
-          </div>
-          <WatchInfo currentVideo={currentVideo} currentVideoComments={currentVideoComments} />
-        </StickyBox>
+        <div className="watch-screen-player">
+          <iframe
+            src={`https://www.youtube.com/embed/${query}?autoplay=1&mute=0`}
+            title='Youtube Watch'
+            frameBorder="0"
+            allowFullScreen
+            width='100%'
+            id="youtube-player-screen"
+            className='iframe'
+            onLoad={() => { setProgress(100); window.scroll({ top: 0 }) }}
+          ></iframe>
+          <div className="iframe-overlay"></div>
+        </div>
+        <WatchInfo currentVideo={currentVideo} currentVideoComments={currentVideoComments} />
       </div>
 
       <div className='col col-4'>
-        <StickyBox offsetTop={84} offsetBottom={24}>
-          <CategoriesBar className='watch-category-bar' />
+        <CategoriesBar className='watch-category-bar' />
+        <InfiniteScroll
+          dataLength={videos.length}
+          next={fetchData}
+          hasMore={true}
+          loader={<>
+          {[...new Array(videos.length <= 0 ? 20 : 8)].map((element, index) => (
+              <div className='col' key={index}>
+                <SkeltonWatch />
+              </div>
+            ))}
+            <div className="d-flex w-100 justify-content-center py-4">
+              <div className="spinner-border" role="status" style={{ color: '#525252' }}>
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </>}
+        >
           {
             videos.map((videos, index) => (
               <div className='col' key={index}>
@@ -102,7 +121,7 @@ const Watch = ({ setProgress }) => {
               </div>
             ))
           }
-        </StickyBox>
+        </InfiniteScroll>
       </div>
     </div>
   )

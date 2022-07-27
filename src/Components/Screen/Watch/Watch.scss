@@ -35,11 +35,6 @@
                 padding: 0;
             }
 
-            &>*.col>* {
-                position: static !important;
-                top: 0 !important;
-            }
-
             &>*.col:last-child {
                 margin-top: 23px;
             }
