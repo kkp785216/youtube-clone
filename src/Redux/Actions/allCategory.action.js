@@ -9,7 +9,7 @@ export const allCategoryAction = () => async (dispatch) => {
         const res = await request("/videoCategories", {
             params: {
                 part: "snippet",
-                regionCode: 'IN',
+                regionCode: 'BR',
             }
         });
         let music = res.data.items.find(a=>a.snippet.title === 'Music');

@@ -20,7 +20,7 @@ export const getVideosBySearch = (keyword, maxresult, isFirst) => async (dispatc
         const res = await request("/videos", {
             params: {
                 part: "snippet,contentDetails,statistics",
-                regionCode: 'IN',
+                regionCode: 'BR',
                 id: arr,
                 maxResults: maxresult,
             }
@@ -88,7 +88,7 @@ export const getVideosBySearchNext = (keyword, nextPage, maxresult, isFirst) => 
         const res = await request("/videos", {
             params: {
                 part: "snippet,contentDetails,statistics",
-                regionCode: 'IN',
+                regionCode: 'BR',
                 id: arr,
                 maxResults: maxresult,
             }

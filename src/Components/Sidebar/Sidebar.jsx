@@ -73,24 +73,6 @@ const Sidebar = (props) => {
                 <span>Library</span>
               </Link>
 
-              <li title="Api Sources">
-                <div className="d-flex position-relative api-box">
-                  <AiFillApi size={23} />
-                  <sub className='position-absolute top-0' style={{ right: '-8px' }}>{apiState}</sub>
-                </div>
-                <span>
-                  <select name="changeApi" id="changeApi" onChange={handleChangeApi} value={apiState}>
-                    {
-                      apiKeys.map((element, index) => {
-                        return (
-                          <option value={index + 1} key={index}>Api {index + 1}</option>
-                        )
-                      })
-                    }
-                  </select>
-                </span>
-              </li>
-
               <hr />
 
               {user ?

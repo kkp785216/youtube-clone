@@ -10,7 +10,7 @@ export const getVideosList = (keyword, maxresult, isFirst) => async (dispatch, g
             params: {
                 part: "snippet,contentDetails,statistics",
                 chart: 'mostPopular',
-                regionCode: 'IN',
+                regionCode: 'BR',
                 videoCategoryId: keyword.id,
                 maxResults: maxresult,
                 pageToken: getState().homeVideos.nextPageToken,
